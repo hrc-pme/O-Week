@@ -2,15 +2,60 @@ site_name: O-Week
 site_url: https://hrc-pme.github.io/O-Week/
 use_directory_urls: false
 
+repo_url: https://github.com/hrc-pme/O-Week.
+repo_name: hrc-pme/O-Week
+
 theme:
   name: material
+  language: zh-TW
+  font:
+    text: Huninn
+
+  icon:
+    repo: octicons/git-merge-16
+
+  features:
+    - navigation.tabs            # Top horizontal navigation
+    - navigation.sections        # Show groups (second level) on the left
+    - navigation.expand          # Groups expanded by default on the left
+    - toc.integrate              # Show section TOC on the left instead of the right
+
+  palette: 
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-2
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
   
 nav:
   - Home: index.md
 
-  - tutorials:
-    - 1.Linux: tutorials/1-linux.md
-    - 2.SSH: tutorials/2-ssh.md
-    - 3.Git: tutorials/3-git.md
-    - 4.Docker: tutorials/4-docker.md
-    - 5.ROS2: tutorials/5-ros2.md
+  - O-Week:
+    - Introduction: oweek/0.intro.md
+    - 1.Linux: oweek/1.linux.md
+    - 2.SSH: oweek/2.ssh.md
+    - 3.Git: oweek/3.git.md
+    - 4.Docker: oweek/4.docker.md
+    - 5.ROS2: oweek/5.ros2.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - pymdownx.emoji
+  - pymdownx.tasklist
+  - pymdownx.magiclink
+  - toc:
+      permalink: true
