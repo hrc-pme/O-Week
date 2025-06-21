@@ -1,5 +1,8 @@
 # ros2_tutorial/mkdocs.yml
 site_name: O-Week
+site_url: https://hrc-pme.github.io/O-Week/
+use_directory_urls: false
+
 theme:
   name: material
   
@@ -12,6 +15,3 @@ nav:
     - 3.Git: tutorials/3-git.md
     - 4.Docker: tutorials/4-docker.md
     - 5.ROS2: tutorials/5-ros2.md
-
-theme:
-  name: material
