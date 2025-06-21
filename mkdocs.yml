@@ -48,6 +48,20 @@ nav:
     - 4.Docker: oweek/4.docker.md
     - 5.ROS2: oweek/5.ros2.md
 
+
+  - Conventions:
+    - Introduction: conventions/0.intro.md
+    - 1.commit: conventions/1.commit.md
+    - 2.repo: conventions/2.repo.md
+
+  - Robot:
+    - Koch-Robot-Arm-V1.1: robot/koch.md
+    - Interbotix-ViperX300s: robot/viperX300s.md
+    - Stretch-3: robot/stretch3.md
+    - LoCoBot: robot/locobot.md
+  
+  - Contribution: contribution.md
+
 markdown_extensions:
   - admonition
   - pymdownx.details
