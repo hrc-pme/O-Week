@@ -6,7 +6,7 @@
 
 </br>
 
-## Local Development Preview (Docker)
+## Local Dev Preview (Docker)
 
 To preview the documentation locally using Docker, run:
 
