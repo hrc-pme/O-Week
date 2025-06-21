@@ -1,4 +1,3 @@
-# ros2_tutorial/mkdocs.yml
 site_name: O-Week
 site_url: https://hrc-pme.github.io/O-Week/
 use_directory_urls: false
@@ -7,7 +6,7 @@ theme:
   name: material
   
 nav:
-  - Homepage: index.md
+  - index.md
 
   - tutorials:
     - 1.Linux: tutorials/1-linux.md
