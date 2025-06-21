@@ -40,7 +40,7 @@ nav:
   - Home: index.md
 
   - O-Week:
-    - Introduction: oweek/0.intro.md
+    - oweek/intro.md
     - 1.Linux: oweek/1.linux.md
     - 2.SSH: oweek/2.ssh.md
     - 3.Git: oweek/3.git.md
@@ -48,11 +48,12 @@ nav:
     - 5.ROS2: oweek/5.ros2.md
 
   - Conventions:
-    - Introduction: conventions/0.intro.md
+    - conventions/intro.md
     - 1.commit: conventions/1.commit.md
     - 2.repo: conventions/2.repo.md
 
   - Robot:
+    - robot/intro.md
     - Koch-Robot-Arm-V1.1: robot/koch.md
     - Interbotix-ViperX300s: robot/viperX300s.md
     - Stretch-3: robot/stretch3.md
