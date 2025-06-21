@@ -1,0 +1,9 @@
+# ros2_tutorial/mkdocs.yml
+site_name: ROS 2 教學筆記
+theme:
+  name: material
+nav:
+  - 首頁: index.md
+
+theme:
+  name: material
