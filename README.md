@@ -4,6 +4,8 @@ Welcome to the official documentation site for the NTHU HRC, powered by [MkDocs 
 
 📖 **Live Documentation:** [https://hrc-pme.github.io/O-Week/](https://hrc-pme.github.io/O-Week/)
 
+</br>
+
 ## Local Development Preview (Docker)
 
 To preview the documentation locally using Docker, run:
