@@ -1,8 +1,8 @@
-# NTHU HRC Technical Documentation
+# NTHU HRC Tech Docs
 
-Welcome to the official documentation site for the NTHU HRC, powered by [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+> Welcome to the official documentation site for the NTHU HRC, powered by [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-📖 **Live Documentation:** [https://hrc-pme.github.io/O-Week/](https://hrc-pme.github.io/O-Week/)
+**Live Documentation:** [https://hrc-pme.github.io/hrc-tech-docs/](https://hrc-pme.github.io/hrc-tech-docs/)
 
 </br>
 
