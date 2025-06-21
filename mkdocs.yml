@@ -10,7 +10,6 @@ theme:
   language: zh-TW
   font:
     text: Huninn
-
   icon:
     repo: octicons/git-merge-16
 
@@ -47,7 +46,6 @@ nav:
     - 3.Git: oweek/3.git.md
     - 4.Docker: oweek/4.docker.md
     - 5.ROS2: oweek/5.ros2.md
-
 
   - Conventions:
     - Introduction: conventions/0.intro.md
