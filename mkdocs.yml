@@ -4,8 +4,14 @@ theme:
   name: material
   
 nav:
-  - 首頁: index.md
-  - Week1: linux.md
+  - Homepage: homepage.md
+
+  - tutorials:
+    - Linux: tutorials/1-linux.md
+    - SSH: tutorials/2-ssh.md
+    - Git: tutorials/3-git.md
+    - Docker: tutorials/4-docker.md
+    - ROS2: tutorials/5-ros2.md
 
 theme:
   name: material
