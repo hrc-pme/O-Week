@@ -7,7 +7,7 @@ theme:
   name: material
   
 nav:
-  - Homepage: homepage.md
+  - Homepage: index.md
 
   - tutorials:
     - 1.Linux: tutorials/1-linux.md
