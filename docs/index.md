@@ -5,7 +5,7 @@
 
 !!! info "我也能更新內容嗎 ?"
     當然可以！這是一份 **開放協作的筆記**，歡迎所有成員共同維護與更新！  
-    在開始貢獻前，請務必參閱 [Contribution.md](hrc-tech-docs/contribution)，了解如何更新和版本維護。
+    在開始貢獻前，請務必參閱 [Contribution.md](https://hrc-pme.github.io/hrc-tech-docs/contribution/)，了解如何更新和版本維護。
 
 ---
 
