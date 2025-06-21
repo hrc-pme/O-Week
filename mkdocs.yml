@@ -7,11 +7,11 @@ nav:
   - Homepage: homepage.md
 
   - tutorials:
-    - Linux: tutorials/1-linux.md
-    - SSH: tutorials/2-ssh.md
-    - Git: tutorials/3-git.md
-    - Docker: tutorials/4-docker.md
-    - ROS2: tutorials/5-ros2.md
+    - 1.Linux: tutorials/1-linux.md
+    - 2.SSH: tutorials/2-ssh.md
+    - 3.Git: tutorials/3-git.md
+    - 4.Docker: tutorials/4-docker.md
+    - 5.ROS2: tutorials/5-ros2.md
 
 theme:
   name: material
