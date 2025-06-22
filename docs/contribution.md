@@ -1,4 +1,4 @@
-# 🛠️ Contribution Guide
+# Contribution Guide
 
 歡迎貢獻 HRC Tech Docs！  
 以下會說明協作流程與注意事項，請在開始修改前先閱讀了解。

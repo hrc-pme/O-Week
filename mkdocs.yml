@@ -14,10 +14,41 @@ theme:
     repo: octicons/git-merge-16
 
   features:
-    - navigation.tabs            # Top horizontal navigation
-    - navigation.sections        # Show groups (second level) on the left
-    - navigation.expand          # Groups expanded by default on the left
-    - toc.integrate              # Show section TOC on the left instead of the right
+    # - announce.dismiss              # 可關閉的公告欄（搭配 extra.announcement 使用）
+    - content.action.edit           # 顯示「編輯本頁」按鈕
+    - content.action.view           # 顯示「檢視原始檔」按鈕
+    - content.code.annotate         # 支援程式碼行註解（需配合特定語法）
+    - content.code.copy             # 程式碼區塊右上角顯示「複製」按鈕
+    # - content.code.select           # 點擊即可選取整段程式碼（非複製）
+    - content.footnote.tooltips     # 鼠標懸停於腳註，顯示提示泡泡
+    - content.tabs.link             # 支援連結到特定 tab（分頁內容）
+    - content.tooltips              # 顯示文字提示（使用 <abbr> 語法）
+
+    # - header.autohide               # 捲動時自動隱藏上方導覽列
+    - header.tabs.sticky            # 將頂部導覽列固定在頁面頂部
+    - header.tabs.sticky.scrollable # 導覽列可捲動，適用於長導覽列
+
+    - navigation.expand             # 預設展開所有側邊欄層級
+    - navigation.footer             # 顯示「上一頁／下一頁」頁腳導覽
+    - navigation.indexes            # 支援資料夾內的 index.md 成為目錄首頁
+    - navigation.instant            # 啟用即時頁面切換（無需整頁重載）
+    - navigation.instant.prefetch   # 預先載入連結頁面，提升速度
+    - navigation.instant.progress   # 即時切換時顯示進度條
+    - navigation.prune              # 隱藏未列入 nav 的頁面（靜態生成仍存在）
+    - navigation.sections           # 分區顯示 nav 區塊（提升閱讀層次）
+    - navigation.tabs               # 將頂部導覽列設為分頁樣式
+    - navigation.tabs.sticky        # 將導覽分頁固定在頁面頂部
+    - navigation.top                # 顯示「回到頂端」按鈕
+    - navigation.tracking           # 側邊欄高亮當前閱讀小節
+    - navigation.tracking.scrollable # 側邊欄可捲動，適用於長頁面
+
+    - search.highlight              # 搜尋結果自動高亮顯示
+    - search.share                  # 搜尋列加入「分享搜尋結果」按鈕
+    # - search.suggest                # 輸入搜尋文字時提供建議補全
+
+    - toc.follow                    # 目錄 (TOC) 跟隨捲動時高亮顯示
+    # - toc.integrate                 # 將目錄整合進側邊欄中（非右側浮動 TOC）
+
 
   palette: 
     # Palette toggle for dark mode
@@ -58,10 +89,12 @@ nav:
     - Stretch-3: robot/stretch3.md
     - LoCoBot: robot/locobot.md
   
-  - Contribution: contribution.md
+  - Contribution Guide: contribution.md
 
 markdown_extensions:
   - admonition
+  - footnotes
+  - md_in_html
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed
@@ -71,3 +104,7 @@ markdown_extensions:
   - pymdownx.magiclink
   - toc:
       permalink: true
+      
+
+extra_css:
+  - stylesheets/extra.css
