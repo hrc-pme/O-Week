@@ -1,6 +1,6 @@
 # NTHU HRC Tech Docs
 
-嗨你好，這裡是用來整理實驗室的技術文件，讓新進成員能快速融入團隊並且有維持良好的工作流。  
+哈囉！這裡會整理實驗室的技術文件，讓新進成員能快速融入團隊並互相交流學習成果。  
 本平台基於 [MkDocs](https://www.mkdocs.org/) 與 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 架設，用 Markdown 語法就能輕鬆撰寫文件。
 
 !!! info "我也能更新內容嗎 ?"
