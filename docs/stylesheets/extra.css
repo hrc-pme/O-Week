@@ -1,0 +1,7 @@
+/* inline code */
+.md-typeset code {
+  background-color: #2e2e2e; 
+  color: #ffca28;            
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}

@@ -92,19 +92,26 @@ nav:
   - Contribution Guide: contribution.md
 
 markdown_extensions:
+  - attr_list
   - admonition
   - footnotes
   - md_in_html
+  - pymdownx.blocks.caption
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
   - pymdownx.emoji
   - pymdownx.tasklist
   - pymdownx.magiclink
   - toc:
       permalink: true
-      
-
+  
 extra_css:
   - stylesheets/extra.css
