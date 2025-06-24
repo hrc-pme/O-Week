@@ -99,7 +99,8 @@ markdown_extensions:
   - pymdownx.blocks.caption
   - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
