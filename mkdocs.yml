@@ -2,7 +2,7 @@ site_name: HRC Tech Docs
 site_url: https://hrc-pme.github.io/hrc-tech-docs/
 use_directory_urls: true
 
-repo_url: https://hrc-pme.github.io/hrc-tech-docs/
+repo_url: https://github.com/hrc-pme/hrc-tech-docs.git
 repo_name: hrc-pme/hrc-tech-docs
 
 theme:
