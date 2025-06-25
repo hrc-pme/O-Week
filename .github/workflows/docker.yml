@@ -1,45 +1,45 @@
 name: Material for Mkdocs Docker Image
 on:
-push: 
-    branches: [ main, pomelo925 ]
-    paths:
-    - docker/Dockerfile
-    - .github/workflows/docker.yml
+  push: 
+      branches: [main]
+      paths:
+        - docker/Dockerfile
+        - .github/workflows/docker.yml
 
 jobs:
-docker:
+  docker:
     runs-on: ubuntu-latest
     steps:
     -
-    name: Repo Checkout 
-    uses: actions/checkout@v4
+      name: Repo Checkout 
+      uses: actions/checkout@v4
     - 
-    name: Docker meta
-    id: meta
-    uses: docker/metadata-action@v5
-    with:
-        images: ${{ secrets.DOCKERHUB_USERNAME }}/mkdocs
-        tags: default
+      name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/mkdocs
+          tags: default
+    -
+      name: Docker Hub Log-in
+      uses: docker/login-action@v3
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
     - 
-    name: Docker Hub Log-in
-    uses: docker/login-action@v3
-    with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      name: Build Docker image
+      uses: docker/build-push-action@v6
+      with:
+          context: docker  
+          load: true 
+          tags: ${{ steps.meta.outputs.tags }}
+          push: false
+          no-cache: true
     - 
-    name: Build Docker image
-    uses: docker/build-push-action@v6
-    with:
-        context: docker  
-        load: true 
-        tags: ${{ steps.meta.outputs.tags }}
-        push: false
-        no-cache: true
-    - 
-    name: Push Docker image
-    uses: docker/build-push-action@v6
-    with:
-        context: docker 
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        no-cache: true
+      name: Push Docker image
+      uses: docker/build-push-action@v6
+      with:
+          context: docker 
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          no-cache: true
