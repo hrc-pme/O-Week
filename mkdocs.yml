@@ -80,7 +80,8 @@ nav:
   - Conventions: 
     - conventions/index.md
     - 1.commit: conventions/1.commit.md
-    - 2.repo: conventions/2.repo.md
+    - 2.gitignore: conventions/2.gitignore.md
+    - 3.repo.md: conventions/3.repo.md
 
   - Robot: 
     - robot/index.md
