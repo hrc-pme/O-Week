@@ -1,9 +1,12 @@
 services:
   mkdocs:
-    build: .
+    build:
+      context: .  
+      dockerfile: Dockerfile
+    image: hrcnthu/mkdocs:default
     ports:
       - "8000:8000"
     volumes:
-      - ./:/docs
+      - ../:/docs
     stdin_open: true
     tty: true

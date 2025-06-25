@@ -114,5 +114,8 @@ markdown_extensions:
   - toc:
       permalink: true
   
+plugins:
+  - include-markdown
+
 extra_css:
   - stylesheets/extra.css
