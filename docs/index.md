@@ -11,7 +11,8 @@
 
 ## Contents
 
-- [conventions](https://hrc-pme.github.io/hrc-tech-docs/conventions/)：實驗室在軟體開發上的慣例與準則，包含 Git 提交格式、Repo 結構等。
-- [oweek](https://hrc-pme.github.io/hrc-tech-docs/oweek/)：新生訓練週內容，協助新進成員熟悉團隊開發流程與基本技能。
-- [robot](https://hrc-pme.github.io/hrc-tech-docs/robot/)：各式實驗室設備（如深度相機、機械手臂、自走車等）的使用手冊與注意事項。
-- [tutorials](https://hrc-pme.github.io/hrc-tech-docs/tutorials/)：涵蓋各領域的軟體教學、工具操作筆記與技巧分享。
+- [O-Week](https://hrc-pme.github.io/hrc-tech-docs/oweek/)：新生訓練週內容，協助新進成員熟悉團隊開發流程與基本技能。
+- [Conventions](https://hrc-pme.github.io/hrc-tech-docs/conventions/)：實驗室在軟體開發上的慣例與準則，包含 Git 提交格式、Repo 結構等。
+- [Robot](https://hrc-pme.github.io/hrc-tech-docs/robot/)：實驗室採購的機器人設備的使用手冊與注意事項。
+- [Tutorials](https://hrc-pme.github.io/hrc-tech-docs/tutorials/)：涵蓋各領域的軟體教學、工具操作筆記與偵錯技巧分享。
+- [Contributio Guide](https://hrc-pme.github.io/hrc-tech-docs/contribution/)：如何更新筆記。
