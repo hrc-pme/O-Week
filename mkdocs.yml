@@ -89,6 +89,15 @@ nav:
     - Interbotix-ViperX300s: robot/viperX300s.md
     - Stretch-3: robot/stretch3.md
     - LoCoBot: robot/locobot.md
+
+  - Tutorials:
+    - tutorials/index.md
+    - Hardware:
+      - tutorials/hardware/index.md
+    - Firmwware:
+      - tutorials/firmware/index.md
+    - Software:
+      - tutorials/software/index.md
   
   - Contribution Guide: contribution.md
 
