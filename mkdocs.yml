@@ -85,9 +85,9 @@ nav:
 
   - Robot: 
     - robot/index.md
-    - Koch-Robot-Arm-V1.1: robot/koch.md
-    - Interbotix-ViperX300s: robot/viperX300s.md
-    - Stretch-3: robot/stretch3.md
+    - Koch Robot Arm V1.1: robot/koch.md
+    - Interbotix ViperX300s: robot/viperX300s.md
+    - Hello Robot Stretch 3: robot/stretch3.md
     - LoCoBot: robot/locobot.md
 
   - Tutorials:
