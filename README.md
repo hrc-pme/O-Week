@@ -8,8 +8,8 @@
 
 ## Local Dev Preview (Docker)
 
-To preview the documentation locally using Docker, run:
+To preview the documentation locally using Docker, run `source run.sh` or 
 
 ```bash
-docker run --rm -it -p 8000:8000 -v $(pwd):/docs squidfunk/mkdocs-material
+docker run --rm -it -p 8000:8000 -v $(pwd):/docs hrcnthu/mkdocs:default
 ```
