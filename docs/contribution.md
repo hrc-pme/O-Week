@@ -32,7 +32,7 @@
     網頁會隨文件內容動態更新。
 
 4. 由於 Github Pages 只吃 `main` branch 上的版本。因此，
-    * 僅做測試/請求校正：  
+    * (建議)僅做測試/請求校正：  
         1. 在本地新建 branch (e.g `dev-pomelo925`)。並且在本地部署及更新測試。
         2. 更新完成後 `git push` 到 Github 上。  
             由於 Github 只吃 `main` branch 的內容，推送新 branch 是不會影響到 Github Pages 的。  
