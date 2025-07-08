@@ -1,0 +1,1391 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hrc-pme.github.io/hrc-tech-docs/oweek/1.linux/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../2.ssh/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>1.Linux - HRC Tech Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Huninn:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Huninn";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-os-operating-system" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="HRC Tech Docs" class="md-header__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HRC Tech Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.Linux
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  O-Week
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../conventions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Conventions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robot/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contribution/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribution Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HRC Tech Docs" class="md-nav__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HRC Tech Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    O-Week
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            O-Week
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    1.Linux
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.Linux
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-os-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. OS (Operating System)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. OS (Operating System)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 作業系統選擇
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. Linux &amp; Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3. Linux 安裝
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Linux 基礎
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Linux 基礎">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. 終端機指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-apt" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. apt 資源包管理工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 實用工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 實用工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. 開發工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-gpu-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. GPU 驅動 &amp; Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4.Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5.ROS2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../conventions/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Conventions
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robot/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robot
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../tutorials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-os-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. OS (Operating System)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. OS (Operating System)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 作業系統選擇
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. Linux &amp; Ubuntu
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3. Linux 安裝
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Linux 基礎
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Linux 基礎">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. 終端機指令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-apt" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. apt 資源包管理工具
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 實用工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 實用工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. 開發工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-gpu-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. GPU 驅動 &amp; Docker
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/edit/master/docs/oweek/1.linux.md" title="編輯此頁" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/raw/master/docs/oweek/1.linux.md" title="查看此頁原始碼" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+  <h1>1.Linux</h1>
+
+<h2 id="1-os-operating-system">1. OS (Operating System)<a class="headerlink" href="#1-os-operating-system" title="Permanent link">&para;</a></h2>
+<h3 id="1-1">1-1. 作業系統選擇<a class="headerlink" href="#1-1" title="Permanent link">&para;</a></h3>
+<p>目前實驗室機器人開發的作業系統主要會在:</p>
+<ul>
+<li>
+<p><strong>Linux</strong></p>
+<ul>
+<li>ROS2</li>
+<li>Unity</li>
+<li>深度學習 GPU 加速</li>
+</ul>
+</li>
+<li>
+<p><strong>Windows</strong></p>
+<ul>
+<li>Unity</li>
+<li>文書處理</li>
+</ul>
+</li>
+</ul>
+<details class="question" open="open">
+<summary>我要使用哪種作業系統?</summary>
+<ul>
+<li><strong>Windows</strong> 適合日常文書處理和部分專業軟體（如 Adobe 系列、MS Office 等），或搭配驅動程式快速測試相機、馬達運作等。</li>
+<li><strong>Linux</strong> 是開源作業系統，整體架構比 Windows 透明直觀，非常適合軟體開發或伺服器運行等。<br />
+並且社群活躍、資源豐富，大部分機器人相關套件（如 ROS2）都以 Linux 為主要支援平台。</li>
+</ul>
+<p>做機器人開發、深度學習或其他軟體工程為主，建議優先使用 Linux OS。</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>理解 OS 和 Arch (架構) 的關係、差異。<br />
+並知道目前有名的產品是哪種架構，例如樹梅派、Jetson 系列電腦、一般桌機等等。</p>
+</div>
+<hr />
+<h3 id="1-2-linux-ubuntu">1-2. Linux &amp; Ubuntu<a class="headerlink" href="#1-2-linux-ubuntu" title="Permanent link">&para;</a></h3>
+<p>Ubuntu 是基於 Linux 的發行版. (其他發行版有如 Debian, Fedora, Arch etc.)<br />
+Linux 是系統內核， 而 Ubuntu 是位於此之上層的操作系統， </p>
+<p>建議使用發行版是社群廣大的 Ubuntu.<br />
+其中 Ubuntu 版本號代表發行年份， 例如 20.04， 22.04， 24.04 LTS 等等.</p>
+<details class="success" open="open">
+<summary>LTS 版本選擇</summary>
+<p>由於最新版通常不太穩定，ROS其他配套通常沒有那麼快跟上來。<br />
+因此我們通常會選用兩年前的LTS版本. </p>
+</details>
+<hr />
+<h3 id="1-3-linux">1-3. Linux 安裝<a class="headerlink" href="#1-3-linux" title="Permanent link">&para;</a></h3>
+<p>使用 Linux 有以下幾種途徑:</p>
+<ul>
+<li><strong>雙系統（Dual Boot）</strong> (最推薦，實驗室成員必學)<ul>
+<li>分割磁碟安裝系統，建議至少留 50GB 分區給 Linux OS 使用.</li>
+<li>優點： 原生 OS，效能最佳，無相容性問題.</li>
+<li>缺點： 安裝流程較繁瑣，切換系統須重開機.</li>
+</ul>
+</li>
+<li><strong>WSL（Windows Subsystem for Linux）</strong> (適合測試用)<ul>
+<li>介紹、安裝方法請參閱 <a href="https://learn.microsoft.com/zh-tw/windows/wsl/">WSL 官方網站</a>.</li>
+<li>優點： 安裝簡單，快速開發.</li>
+<li>缺點： CPU 和記憶體消耗大， USB 直通、GPU 調用等須特別處理.</li>
+</ul>
+</li>
+<li><strong>虛擬機（Virtual Machine）</strong> (不推薦)<ul>
+<li>使用傳統虛擬機如 VMWare， VirtualBox.</li>
+<li>缺點： 效能低，已經被 Docker 取代.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">Linux OS 語言選擇</p>
+<p>Linux 語言請務必使用 English，必須習慣看原文！<br />
+一方面讀英文是基本能力，另一方面是比較好從 error log 去找到資源。</p>
+</div>
+<details class="bug">
+<summary>灌系統時可能遇到的錯誤</summary>
+<ul>
+<li>
+<p>Problem 1: 沒有 Wi-Fi Icon，無法使用 Wi-Fi</p>
+<p>可能是因為 Linux does not support MEDIATEK Network Card in default.<br />
+請參閱 <a href="https://askubuntu.com/questions/1464480/how-to-install-realtek-wlan-driver-mt7921-in-ubuntu-22-04">How to install Realtek WLAN driver mt7921 in Ubuntu 22.04?</a></p>
+<p>注意重開機時要先關機，跑 <code>sudo shutdown now</code> 而非 <code>sudo reboot</code>.</p>
+</li>
+<li>
+<p>Problem 2. Change Kernel (if needed)</p>
+<p>Use ubuntu tool <code>mainline kernels</code>.</p>
+</li>
+</ul>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>灌雙系統（優先）或安裝 WSL，進入 Ubuntu 24.04 環境。</p>
+</div>
+<hr />
+<h2 id="2-linux">2. Linux 基礎<a class="headerlink" href="#2-linux" title="Permanent link">&para;</a></h2>
+<h3 id="2-1">2-1. 終端機指令<a class="headerlink" href="#2-1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>參考影片： <a href="https://www.youtube.com/watch?v=-fzO7iWCSWY">快速linux指令教學（mac, windows, ubuntu...等等適用）｜工程師必備技能</a></p>
+</blockquote>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>熟悉 Terminal 操作</li>
+<li>熟悉 file navigation，能僅用終端機指令去導覽、創建或刪除自訂的資料夾。</li>
+</ol>
+</div>
+<hr />
+<h3 id="2-2-apt">2-2. apt 資源包管理工具<a class="headerlink" href="#2-2-apt" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>參考文章：<a href="https://www.tokfun.net/os/linux/install-remove-linux-software-using-apt-command/">Ubuntu APT 指令更新、升級、移除、安裝套件教學</a></p>
+</blockquote>
+<p><code>apt</code> 是 Ubuntu 最常用的工具之一，用來管理下載的資源。</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>熟悉使用 <code>apt</code> 安裝、移除、更新 package</li>
+<li>安裝必要套件後，並輸入 <code>xclock</code> 去測試 Linux 圖形顯示功能正常與否。</li>
+</ol>
+</div>
+<hr />
+<h2 id="3">3. 實用工具<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>接下來，開始安裝 Linux 開發的必要工具。</p>
+<h3 id="3-1">3-1. 開發工具<a class="headerlink" href="#3-1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>SSH: <code>sudo apt install ssh openssh-server</code></p>
+<ul>
+<li>SSH 教學放在後面，先安裝就好。</li>
+</ul>
+</li>
+<li>
+<p>Terminator : <code>sudo apt install terminator</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>學習 terminator 常用的 hotkeys。</p>
+</div>
+</li>
+<li>
+<p>Git: <code>sudo apt install git</code>.</p>
+<ul>
+<li>Git 教學放在後面，先安裝就好。</li>
+</ul>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>安裝完成以上套件，並透過指令檢查 SSH 及 Git 的安裝版本。</p>
+</div>
+<hr />
+<h3 id="3-2-gpu-docker">3-2. GPU 驅動 &amp; Docker<a class="headerlink" href="#3-2-gpu-docker" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>Docker</p>
+<ul>
+<li>
+<p>Follow the <code>apt</code> installation steps from <a href="https://docs.docker.com/engine/install/ubuntu/">official website</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>若有 “docker daemon permission denied” 錯誤， 解決並理解原因.</p>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>Nvidia driver (有 nvidia GPU 就安裝)</p>
+<ul>
+<li>
+<p>安裝指令</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>ubuntu-drivers<span class="w"> </span>list<span class="w"> </span><span class="c1"># check the compatible driver version</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nvidia-driver-5xx<span class="w"> </span><span class="c1">#change 5xx to 535， 550， 555 …</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>sudo<span class="w"> </span>reboot
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>測試指令 <code>nvidia-smi</code>，檢查安裝成功與否.      </p>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<p>Nvidia Docker toolkit (有 nvidia GPU 就安裝)</p>
+<ul>
+<li>
+<p>Follow the <code>apt</code> installation on <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">official website</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>測試指令 <code>sudo docker run --rm --runtime=nvidia --gpus all ubuntu nvidia-smi</code>。<br />
+若遇到問題，解決並理解原因。</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition tip">
+<div style="text-align: center">
+<p>還不懂 Docker 用途沒關係，教學會放在後面。<br>
+但必須先解決安裝的問題。</p>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="頁腳" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="上一頁: O-Week">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一頁
+              </span>
+              <div class="md-ellipsis">
+                O-Week
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../2.ssh/" class="md-footer__link md-footer__link--next" aria-label="下一頁: 2.SSH">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一頁
+              </span>
+              <div class="md-ellipsis">
+                2.SSH
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "header.tabs.sticky", "header.tabs.sticky.scrollable", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.tracking.scrollable", "search.highlight", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

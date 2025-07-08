@@ -1,0 +1,2168 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hrc-pme.github.io/hrc-tech-docs/oweek/3.git/">
+      
+      
+        <link rel="prev" href="../2.ssh/">
+      
+      
+        <link rel="next" href="../4.docker/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>3.Git - HRC Tech Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Huninn:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Huninn";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-github" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="HRC Tech Docs" class="md-header__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HRC Tech Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3.Git
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  O-Week
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../conventions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Conventions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robot/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contribution/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribution Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HRC Tech Docs" class="md-nav__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HRC Tech Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    O-Week
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            O-Week
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    3.Git
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.Git
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 準備工作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 準備工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-github-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. GitHub SSH Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3. Git → GitHub
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 工作流（Workflow）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 工作流（Workflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-git-init" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. git Init
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-git-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. git add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-git-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. git commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-publish-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. publish branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-create-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5. create repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-6-git-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-6. git pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-7-git-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-7. git push
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-8-git-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-8. git clone
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git-flow-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Git Flow &amp; GitHub Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Git Flow &amp; GitHub Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-git-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. git branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. git flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-github-flow-fork-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-3. GitHub Flow (fork &amp; PR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-submodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 子模組（Submodule）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 子模組（Submodule）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-1. 建立父子模組關係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-2-submodule-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-2. Submodule Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-3. 更新子模組
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-4. 新增子模組
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-github-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. GitHub Action
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. GitHub Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-1-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-1. Docker Image 自動流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4.Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5.ROS2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../conventions/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Conventions
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robot/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robot
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../tutorials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 準備工作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 準備工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-github-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. GitHub SSH Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-3-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-3. Git → GitHub
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 工作流（Workflow）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 工作流（Workflow）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-git-init" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. git Init
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-git-add" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. git add
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-git-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. git commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-publish-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. publish branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-create-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5. create repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-6-git-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-6. git pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-7-git-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-7. git push
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-8-git-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-8. git clone
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git-flow-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Git Flow &amp; GitHub Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Git Flow &amp; GitHub Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1-git-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. git branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. git flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-github-flow-fork-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-3. GitHub Flow (fork &amp; PR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-submodule" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 子模組（Submodule）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 子模組（Submodule）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-1. 建立父子模組關係
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-2-submodule-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-2. Submodule Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-3. 更新子模組
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-4. 新增子模組
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-github-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. GitHub Action
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. GitHub Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5-1-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      5-1. Docker Image 自動流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/edit/master/docs/oweek/3.git.md" title="編輯此頁" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/raw/master/docs/oweek/3.git.md" title="查看此頁原始碼" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="git-github">Git &amp; GitHub<a class="headerlink" href="#git-github" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Git &amp; GitHub</p>
+<p>Git 是一個分散式版本控制的軟體工具。<br />
+GitHub 是一個以 Git 作為版控工具的線上原始碼代管服務平台，用於公開程式或軟體代碼。</p>
+</div>
+<p>檢查 Git 安裝：<code>git --version</code></p>
+<hr />
+<h2 id="1">1. 準備工作<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="1-1">1-1. 概念<a class="headerlink" href="#1-1" title="Permanent link">&para;</a></h3>
+<p>若你還不太理解 Git 及 GitHub ，推薦以下兩部影片。</p>
+<ul>
+<li>
+<p>Git 介紹影片</p>
+<p><a href="https://www.youtube.com/watch?v=N6YQlPuAamw">这可能是你看过最通俗易懂的git介绍了 | 什么是git？它如何实现代码版本控制的？它是怎么工作的？还不懂git？赶紧看一看吧【设计师的100个前端问题-05】</a></p>
+</li>
+<li>
+<p>GitHub 介紹影片</p>
+<p><a href="https://www.youtube.com/watch?v=88iPjxeaXpg&amp;t=78s">一次听明白Github什么是 | git如何与github协作 | github上如何参与开源项目 【设计师的100个前端问题-06】</a></p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>註冊 <a href="https://github.com/">GitHub</a> 並安裝 Git。</p>
+<ul>
+<li>Windows: <a href="https://gitforwindows.org/">Git for Windows</a>  </li>
+<li>Linux: <code>sudo apt install git</code></li>
+</ul>
+</div>
+<hr />
+<h3 id="1-2-github-ssh-key">1-2. GitHub SSH Key<a class="headerlink" href="#1-2-github-ssh-key" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">GitHub SSH 驗證機制</p>
+<p>使用 GitHub 前，你須要丟 public key 到 GitHub 上，驗證本地電腦與遠端 GitHub Server 的連線。<br />
+在驗證成功後，你才能在自己的  GitHub 中對 Repository 進行增減、修改或更新。</p>
+</div>
+<p><img alt="SSH Key" src="../../assets/git/ssh-key.png" /></p>
+<p align="center">
+我的 GitHub 上存取多個不同裝置的 public key。<br>
+因此能在不同的電腦上更新我的 repository。
+</p>
+
+<p>設定步驟如下：</p>
+<ol>
+<li>登入 GitHub</li>
+<li>點擊右上角圖示下拉選單 settings</li>
+<li>選擇左側欄位 SSH and GPG keys</li>
+<li>按藍色的 New SSH Keys。</li>
+</ol>
+<details class="info">
+<summary>設定畫面解釋</summary>
+<p><img alt="SSH Key Description" src="../../assets/git/ssh-key-desc.png" /></p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>使用指令 <code>ssh -T git@github.com</code> 測試連線，成功後才能繼續往下做。</p>
+</div>
+<hr />
+<h3 id="1-3-git-github">1-3. Git → GitHub<a class="headerlink" href="#1-3-git-github" title="Permanent link">&para;</a></h3>
+<p>在實際操作前，先來釐清 Git 流程和機制吧！</p>
+<p><img alt="Git Basics" src="../../assets/git/basic.png" width="600" /></p>
+<div class="admonition info">
+<p class="admonition-title">本地端 vs. 遠端</p>
+<ul>
+<li>Local（本地端）<ul>
+<li>working directory（工作目錄）：實際編輯的檔案位置。</li>
+<li>staging area（暫存區）：用來暫存準備提交的變更。</li>
+<li>local repo（本地版本庫）：記錄正式提交的歷史。</li>
+</ul>
+</li>
+<li>Remote（遠端）<ul>
+<li>remote repo（遠端版本庫）：例如 GitHub、GitLab 上的倉庫。</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>主要指令與流程</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>來源 → 目標</th>
+<th>主要用途與說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git add</code></td>
+<td>working directory → <br>staging area</td>
+<td>標記要提交的檔案。<br>可篩除不必要的檔案（如編譯檔、權重檔等）。</td>
+</tr>
+<tr>
+<td><code>git commit</code></td>
+<td>staging area →<br>local repo</td>
+<td>將變更存入本地版本歷史。<br>需撰寫 commit 訊息紀錄本次修改重點。</td>
+</tr>
+<tr>
+<td><code>git pull</code></td>
+<td>remote repo →<br>local repo</td>
+<td>拉取遠端更新。<br>同步他人修改或讓本地裝置更新至最新版本。</td>
+</tr>
+<tr>
+<td><code>git push</code></td>
+<td>local repo →<br>remote repo</td>
+<td>將本地提交推送到 Github。<br>與遠端同步，讓團隊成員取得你的修改。</td>
+</tr>
+<tr>
+<td><code>git checkout</code></td>
+<td>local repo →<br>working directory</td>
+<td>切換分支或還原到某個版本，讓工作目錄回到指定狀態。<br>（暫時不用深入理解）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-workflow">2. 工作流（Workflow）<a class="headerlink" href="#2-workflow" title="Permanent link">&para;</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>這裡都會直接使用 VSCode 操作 Git（而不是在 Git Bash 中打指令）。</p>
+<p>VSCode 擴展模組以按鍵代替 git 指令，操作更快速方便、學習也更快。<br />
+我會提供對應 Git 指令，你也可以選擇在 Git Bash 中輸入，效果相同。</p>
+<p>因為很多進階用法仍要靠指令完成，所以也別排斥使用指令。</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>實驗室禁止使用 USB 拷貝等「沒有使用 Git 版控工具」的方式移植程式碼，會變得髒亂很難管理！<br />
+最後還要花人力特別去整理 code &amp; environment，會很悲劇。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>在 VSCode 中的 extensions 下載 Git 模組。</p>
+</div>
+<hr />
+<h3 id="2-1-git-init">2-1. git Init<a class="headerlink" href="#2-1-git-init" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<code>git init</code></p>
+</blockquote>
+<p>首先，點擊 VSCode 左上角「開啟資料夾」，瀏覽至任意空資料夾，或一還沒使用 git 初始化過的專案的根目錄。<br />
+注意你選擇的資料夾初始化後，該層級以及所有子層級的檔案都會被納入 git 版控中。  </p>
+<p>在 vscode 中的 source control ，進行初始化。</p>
+<p><img alt="" src="../../assets/git/init.png" width="350" /></p>
+<details class="question">
+<summary>沒有 Source Control Icon</summary>
+<p>請檢查是否有安裝 Git，
+以及相關的 VSCode Extensions。</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>初始化後，使用 <code>ls -la</code> 指令檢查目錄中有包含隱藏檔案 <code>.git</code>。</p>
+</div>
+<hr />
+<h3 id="2-2-git-add">2-2. git add<a class="headerlink" href="#2-2-git-add" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令： <code>git add</code></p>
+</blockquote>
+<p>新增資料到暫存區 ( Storage Area )。</p>
+<p><img alt="" src="../../assets/git/add1.png" width="380" /> <img alt="" src="../../assets/git/add2.png" width="350" /></p>
+<hr />
+<h3 id="2-3-git-commit">2-3. git commit<a class="headerlink" href="#2-3-git-commit" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令： <code>git commit -m "your commit msg"</code></p>
+</blockquote>
+<p>打包一個版本做提交，並寫上 commit 訊息。</p>
+<p><img alt="" src="../../assets/git/commit.png" /></p>
+<details class="bug">
+<summary>Error: Make sure you configure …</summary>
+<p><img alt="" src="../../assets/git/set-name-email.png" /></p>
+<p><strong>Solution</strong></p>
+<p>用快捷鍵 <code>ctrl + ~</code> 打開終端機，在右上方「+」的下拉選單中選 Git Bash。</p>
+<p><img alt="" src="../../assets/git/git-bash.png" /></p>
+<p>在 Git Bash 中設定 GitHub 的 username 和 email。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git config --global user.name &quot;MY_NAME&quot;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git config --global user.email MY_EMAIL@example.com
+</span></code></pre></div>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>成功打包訊息。</li>
+<li>請至 <a href="https://hrc-pme.github.io/hrc-tech-docs/conventions/1.commit">conventions-commit</a> 了解 git commit 的格式規範和習慣。</li>
+</ol>
+</div>
+<hr />
+<h3 id="2-4-publish-branch">2-4. publish branch<a class="headerlink" href="#2-4-publish-branch" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<code>git push --set-upstream origin main</code></p>
+<ul>
+<li><code>git push</code>：將本地分支的提交推送到遠端版本庫。</li>
+<li><code>origin</code>：遠端儲存庫的預設名稱。</li>
+<li><code>main</code>：你要推送的分支名稱（本地的 <code>main</code> 分支）。</li>
+<li><code>--set-upstream</code>（或 <code>-u</code> 簡寫）：設定預設追蹤分支，意思是把你的本地分支 <code>main</code> 與遠端的 <code>origin/main</code> 關聯起來。</li>
+</ul>
+</blockquote>
+<p>按下「publish branch」建立並發佈分支。</p>
+<details class="info">
+<summary>首次需認證確認</summary>
+<p><img alt="" src="../../assets/git/allow1.png" />
+<img alt="" src="../../assets/git/allow2.png" />
+<img alt="" src="../../assets/git/allow3.png" /></p>
+</details>
+<p><img alt="image.png" src="../../assets/git/publish-branch.png" /></p>
+<hr />
+<h3 id="2-5-create-repository">2-5. create repository<a class="headerlink" href="#2-5-create-repository" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<br />
+<code>git remote add origin [username]/[repo].git</code><br />
+<code>git push -u origin main</code></p>
+</blockquote>
+<p>選「private repository」，並輸入 repo name。 (自訂)</p>
+<p><img alt="image.png" src="../../assets/git/private-repo.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>發佈 repo 並且能在 GitHub 中找到。</p>
+</div>
+<hr />
+<h3 id="2-6-git-pull">2-6. git pull<a class="headerlink" href="#2-6-git-pull" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<code>git pull -u origin master</code></p>
+</blockquote>
+<ol>
+<li>
+<p>在 GitHub repo 頁面中新增 README。<br />
+<code>README.md</code> 通常以 markdown 撰寫，說明有關於此 REPO 的資訊。</p>
+<p><img alt="" src="../../assets/git/readme.png" /></p>
+<details class="info">
+<summary>README.md example</summary>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Python</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">---</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">sample</span> <span class="k">for</span> <span class="n">readme</span> <span class="n">file</span><span class="mf">.1</span>
+</span></code></pre></div>
+</details>
+<div class="admonition info">
+<p class="admonition-title">目前情況</p>
+<p>注意 commit 完後，現在遠端的 GitHub Repo 是新版本。<br />
+所以現在須要進行 <code>git pull</code>，更新本地端使其與遠端同步。</p>
+</div>
+</li>
+<li>
+<p>本地端提取新版本。<br />
+到「source control」的右側「…」，
+選擇「提取」。</p>
+<p><img alt="" src="../../assets/git/pull.png" /></p>
+</li>
+</ol>
+<p>在多人合作時，隊友會不定期使用 <code>git push</code> 更新專案項目。<br />
+而我們也要定時 <code>git pull</code> 更新專案，確保彼此是基於同個版本之上開發。</p>
+<p>但通常不會直接在同個 branch 上開發，這裡先有個概念即可。</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>確認在 local repo 中出現 README.md.</p>
+</div>
+<hr />
+<h3 id="2-7-git-push">2-7. git push<a class="headerlink" href="#2-7-git-push" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<code>git push origin main</code></p>
+</blockquote>
+<ol>
+<li>
+<p>更改本地端資料：新增檔案 hello.txt，並隨便打幾個字。</p>
+</li>
+<li>
+<p><code>git add</code> 並 <code>git commit</code>。</p>
+<p><img alt="" src="../../assets/git/add-hello.png" /></p>
+</li>
+<li>
+<p><code>git push</code>：按下「同步變更」就能夠成功 push 上去囉！</p>
+<p><img alt="" src="../../assets/git/push-hello.png" /></p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Sync（同步變更）</p>
+<p>今天在雲端新增 readme 後，假設我們沒有 git pull 下來；<br />
+同時間我又在本地端新增了 hello.txt 檔案，這樣會出現本地和遠端版本不一致。</p>
+<p>同步變更其實就是先 <code>git pull</code> 再 <code>git push</code>。<br />
+事實上，Github 規定在 push 之前必須更新到和雲端版本相同。<br />
+必要時是可以透過 <code>-f</code> 來強制推送（並覆蓋檔案），但不推薦用除非你知道在做啥。</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">總結</p>
+<p>至此，我們已經跑過一遍完整的開發流程。<br />
+從本地建立 Local Repo，上傳到 Github，並且模擬開發中的 <code>pull</code> 和 <code>push</code> 過程。  </p>
+<p>個人更新，要維持習慣天天更新 Repo，紀錄工作進度同時也做了備份。<br />
+團隊更新，會須要更多 Git 知識，請繼續跟著章節學習！</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>檢查 GitHub Repo 上是否有出現新增檔案，並且自己再試幾遍去熟悉流程。</p>
+</div>
+<hr />
+<h3 id="2-8-git-clone">2-8. git clone<a class="headerlink" href="#2-8-git-clone" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>對應指令：<code>git clone [repo_url]</code></p>
+</blockquote>
+<p>透過 <code>git clone</code> 指令，能速載任意的 Public Repo 或自己的 Repo。 </p>
+<ol>
+<li>
+<p>首先複製自己 repo 的網址。</p>
+<p><img alt="" src="../../assets/git/clone.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">SSH vs. HTTPS</p>
+<p>有存取權限的 Repo 請使用 SSH 網址，比較安全。（盡量都用 SSH）<br />
+沒有的話就用 https 做 git clone。</p>
+</div>
+</li>
+<li>
+<p>開 Terminal 並 Git Clone。</p>
+<p><img alt="" src="../../assets/git/clone2.png" /></p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>學會使用 git clone。</p>
+</div>
+<hr />
+<h2 id="3-git-flow-github-flow">3. Git Flow &amp; GitHub Flow<a class="headerlink" href="#3-git-flow-github-flow" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Git Flow 是使用 Git 進行團隊開發時的流程規範與策略。<br />
+幫助多人協作、降低衝突、維護乾淨的專案歷史。</p>
+</blockquote>
+<p>這只是一種思想和概念，不是一套嚴謹的實際規範或流程。<br />
+多看 GitHub 開源專案，能學習到大團隊是如何管理的。</p>
+<hr />
+<h3 id="3-1-git-branch">3-1. git branch<a class="headerlink" href="#3-1-git-branch" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>在開始 Git Flow 與 GitHub Flow 前，需要先熟悉 git branch 功能。</p>
+</blockquote>
+<p>Branch（分支），能讓你在不影響主線 (<code>main</code>) 的情況下進行實驗、開發新功能。<br />
+預設分支通常為 <code>main</code> 或 <code>master</code>。</p>
+<p>這裡想先說明幾點：</p>
+<ul>
+<li>同個 repo 的 <code>branch</code> 之間的版本往往是不一致的。<br />
+例如團隊開發中，以人名為命名的 <code>branch</code> 上，有各自組員的新進度。<br />
+又或是緊急修復或實驗測試時，臨時新開的 <code>hotfix</code> 分支。<br />
+通常這些分支相對於 <code>main</code> 的版本會是更新的。</li>
+<li><code>branch</code> 一樣有分 local 和 remote。<br />
+在本地新增 branch 後，須 <code>git push</code> 才會在 GitHub 上看到分支。<br />
+同理若於 GitHub 上新增分支，須 <code>git pull</code> 才能在本地端看到新分支。  </li>
+<li><code>git push</code> 一次只能發佈一個 <code>branch</code> 的更新。</li>
+<li>團隊開發中，理應定期開會並合併代碼，對不同的 <code>branch</code> 做 <code>git merge</code>。<br />
+<code>git merge</code> 階段，要確認彼此的程式碼沒有衝突。</li>
+<li><code>git clone</code> 會將所有分支的資料都 clone 下來，但只顯示預設分支。<br />
+因為同一時間只能在一個分支上作業，切換分支需要手動做 <code>git checkout</code>。</li>
+</ul>
+<details class="tip">
+<summary>Git Branch 指令集</summary>
+<ul>
+<li>
+<p>查看分支</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">git</span> <span class="n">branch</span>        <span class="c1"># 列出本地所有分支</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">r</span>     <span class="c1"># 列出遠端分支</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">a</span>     <span class="c1"># 列出所有（本地 + 遠端）分支</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>新增分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>branch<span class="w"> </span>new-feature<span class="w">       </span><span class="c1"># 建立新分支（不切換過去）</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>new-feature<span class="w">  </span><span class="c1"># 建立並切換到新分支</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>切換分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w">         </span><span class="c1"># 切換到 main 分支</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>switch<span class="w"> </span>new-feature<span class="w">    </span><span class="c1"># 使用 git 2.23+ 新指令</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>刪除分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>branch-name<span class="w">     </span><span class="c1"># 刪除分支（已合併）</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>branch<span class="w"> </span>-D<span class="w"> </span>branch-name<span class="w">     </span><span class="c1"># 強制刪除（未合併也可）</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>合併分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>merge<span class="w"> </span>new-feature<span class="w">         </span><span class="c1"># 將 new-feature 合併進 main</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>推送分支到遠端</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>branch-name<span class="w">        </span><span class="c1"># 推送本地分支到遠端</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>branch-name<span class="w">     </span><span class="c1"># 並設定上游分支</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>取得遠端分支</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>fetch<span class="w">                         </span><span class="c1"># 抓取所有遠端分支更新</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>local-name<span class="w"> </span>origin/remote-name
+</span></code></pre></div>
+</li>
+</ul>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>在 local repo 中新增不同 branch，熟悉在不同的分支上開發，並 push 到 Github。<br />
+並且善用 VSCode extensions，如透過 GUI 換 branch、看 Git log。  </p>
+<p>範例：過去團隊比賽的紀錄，以人名為命名的 branch 各自開發並定期 merge。<br />
+透過 Git Extensions 可以清楚觀看開發紀錄。</p>
+<p><img alt="" src="../../assets/git/log.png" /></p>
+</div>
+<hr />
+<h3 id="3-2-git-flow">3-2. git flow<a class="headerlink" href="#3-2-git-flow" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Git Flow 是歷史悠久且廣泛被使用的一種版控流程。<br />
+顧名思義，GIt flow 僅需 Git 工具就能實現。與之對應的有 GitHub Flow。</p>
+</blockquote>
+<p>大概知道 git flow 形式即可，現在大多都走 github flow。<br />
+專案中會有兩個長期存在的分支，分別為主分支 <strong><code>Master</code></strong> 以及開發分支 <strong><code>Develop</code></strong>。</p>
+<ul>
+<li><strong><code>Master</code></strong>：用於存放對外發布的版本。此分支上發佈的版本都應該是穩定的。</li>
+<li><strong><code>Develop</code></strong>：用於存放最新的開發版本。</li>
+</ul>
+<p>再來還有三種短期（臨時性）分支。<br />
+開發完就被 <code>merge</code> 進 <code>develop</code> 或 <code>master</code> 並刪除。</p>
+<ul>
+<li>功能分支（feature branch）</li>
+<li>修復分支（hotfix branch）</li>
+<li>預發分支（release branch）</li>
+</ul>
+<hr />
+<h3 id="3-3-github-flow-fork-pr">3-3. GitHub Flow (fork &amp; PR)<a class="headerlink" href="#3-3-github-flow-fork-pr" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>GitHub Flow 能在部署上自動化，如一天之類需要多次部署的開發（持續發布）。<br />
+GitHub 比 git 多兩個服務，<code>fork</code> 及 <code>pull request</code>（簡稱 <code>PR</code>），還有 issue tracking 等。</p>
+</blockquote>
+<p>首先是 <code>fork</code>，類似於 <code>clone</code>，會將他人的 repo 複製一份到自己的 GitHub 上。<br />
+並且將你複製的與原 repo 建立連結。</p>
+<p><img alt="" src="../../assets/git/fork.png" /></p>
+<p>你可以在你複製的那份任意修改，完全不會影響到原作。<br />
+假如今天你對複製在你個人 GitHub 上的那份 repo 做了功能修復，並想貢獻給原作者。<br />
+這時就可以透過 GitHub 上面的 GUI 去丟 PR，毋須指令操作。<br />
+原作者會收到通知，由他確認是否同意你的  PR。</p>
+<div class="admonition info">
+<p class="admonition-title">Pull Request (PR)</p>
+<p><code>Pull Request</code>，意思是 request 對方 <code>git pull</code> 你的 <code>git commit</code>。<br />
+本質上就是在請求 <code>git merge</code> ，只是多了一種貢獻關係。</p>
+</div>
+<p>除了 fork repo 可以對原作丟 PR 之外。 
+即便是在同一個 repo 中，不同的 branch 之間也能在 GitHub 上做 PR 的。
+例如 <code>hot-fix</code> 分支請求 <code>release</code> 分支合併它新增的緊急修復補包。</p>
+<div class="admonition successs">
+<p>現在考慮一個場景吧！</p>
+<p>我們現在共同維護著實驗室網站 <code>labpage_repo</code>。<br />
+正式發佈的版本為 <code>release</code> 分支，網管為 <code>alan</code>，並加入新成員 <code>pomelo925</code>。</p>
+<p>若 <code>pomelo925</code> 想要在 <code>labpage_repo</code>上新增其個人檔案，可以怎麼做？<br />
+這裡提供兩種比較正規的做法，Fork 版本與 Branch 版本。</p>
+<ul>
+<li>
+<p>Fork 版本（適用於當 <code>pomelo925</code> 沒有 <code>labpage_repo</code> 的存取權限）</p>
+<ol>
+<li><code>pomelo925</code> 將 <code>labpage_repofork</code> 到個人 GitHub 上，名稱為 <code>fork_labpage_repo</code>。</li>
+<li><code>pomelo925</code> 在 <code>fork_labpage_repo</code> 上新增了 925 行程式碼並測試無誤。</li>
+<li><code>pomelo925</code> 在 GitHub 上對 <code>labpage_repo</code> 丟 PR，請求代碼合併。</li>
+<li><code>alan</code> 收到通知，測試沒問題後同意 <code>PR</code> ，將修改合併到分支 <code>release</code> 中。</li>
+</ol>
+</li>
+<li>
+<p>Branch 版本 （適用於當 <code>pomelo925</code> 擁有 <code>labpage_repo</code> 的部分存取權限）</p>
+<ol>
+<li><code>pomelo925</code> <code>git clone</code> <code>labpage_repo</code> 到本地端。</li>
+<li><code>pomelo925</code> 在本地端建立並 <code>git push</code> 分支 <code>pomelo_dev</code>。</li>
+<li><code>pomelo925</code> 在丟了 925 次的 commit 後，覺得很完美了。</li>
+<li>因為分支 <code>release</code> 被設定成只有網管 <code>alan</code> 擁有修改權限。
+於是 <code>pomelo925</code>  決定在 GitHub 上對分支 <code>release</code> 丟 <code>PR</code>。</li>
+<li><code>alan</code> 收到通知，測試沒問題後同意 <code>PR</code> ，並將修改合併到分支 <code>release</code> 中。</li>
+<li>此時分支 <code>release</code> 和 <code>pomelo_dev</code> 版本一致，可以刪除分支 <code>pomelo_dev</code> 。</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>在自己的 repo 中，對 <code>main branch</code> 丟 <code>PR</code>，並自己同意請求。<br />
+( 除了熟悉操作、介面外，也可以多多測試，合併檔案衝突時要怎麼處理)</li>
+<li>類似的流程，但改成 fork 自己的專案，並向自己丟 <code>PR</code>。</li>
+</ol>
+</div>
+<hr />
+<h2 id="4-submodule">4. 子模組（Submodule）<a class="headerlink" href="#4-submodule" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Git Submodule 是 Git 的一個功能。<br />
+用來在一個 Git 倉庫（主專案）中引用另一個 Git 倉庫（子專案），
+讓你能夠把外部專案（例如：library、工具、模組）直接嵌入到你的專案中，
+但又能保持它們的版本獨立管理。</p>
+</blockquote>
+<p>如下圖<a href="https://github.com/pomelo925/tel2022_DoItTomorrow">範例</a>，點擊 submodule 後會跳轉至對應的 GitHub Repo。</p>
+<p><img alt="" src="../../assets/git/sub-ex.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">HRC Lab 中 Submodule 的使用方式</p>
+<p>在實驗室中，submodule 通常是功能性的，會對應到特定的 robot, sensor 或 algorithm 等。（e.g <a href="https://github.com/hrc-pme/realsense-ros">hrc-pme/realsense-ros</a>）<br />
+剩下的 repo 則是 porject-based，會包很多的 launch files 去 call submodule 的 function。<br />
+像是 <a href="https://github.com/hrc-pme/koch_robot_unity">hrc-pme/koch_robot_unity</a> (Unity/Operator 端) 或 <a href="https://github.com/hrc-pme/drl-ls-navi">hrc-pme/drl-ls-navi</a>）(ROS/Robot 端)。</p>
+<p>關於更多 project-based repository 的細節，請參考 <a href="https://hrc-pme.github.io/hrc-tech-docs/conventions/3.repo">conventions-repo</a>。</p>
+</div>
+<hr />
+<h3 id="4-1">4-1. 建立父子模組關係<a class="headerlink" href="#4-1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>前情提要：
+在 GitHub 上有兩個 repository,  <code>parent_repo</code> &amp; <code>child_repo</code>。<br />
+可以新建兩個, 或直接用現成的。</p>
+</blockquote>
+<p>現在要將 <code>parent_repo</code> 以 submodule 的方式連結 <code>child_repo</code>。</p>
+<ol>
+<li>
+<p>Navigate 到 <code>parent_repo</code> 的根目錄。</p>
+</li>
+<li>
+<p>建立子模組關係。（此指令包含 <code>git clone</code> 的作用）
+    <div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># &lt;child_repo&gt;：子模組 child_repo 的 URL。</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># &lt;local path&gt;：子模組相對於父模組的路徑位置。</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">#               資料夾名稱會會是 github 上 submodule 的名稱前綴。</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="l l-Scalar l-Scalar-Plain">git submodule add &lt;child_repo&gt; &lt;local path&gt;</span>
+</span></code></pre></div></p>
+<details class="info">
+<summary>範例</summary>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># example</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="l l-Scalar l-Scalar-Plain">git submodule add git@github.com/DIT-ROBOTICS/eurobot-2024-vision-courtside.git courtside</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="l l-Scalar l-Scalar-Plain">git submodule add git@github.com/DIT-ROBOTICS/eurobot-2024-onboard-cam.git onboard</span>
+</span></code></pre></div>
+<p>資料夾結構如下所示：</p>
+<p><img alt="image.png" src="../../assets/git/sub-folder.png" /> </p>
+</details>
+</li>
+<li>
+<p>確認在 <code>parent_repo</code> 根目錄的 source control 中，會新增兩個檔案。</p>
+<details class="info">
+<summary>範例</summary>
+<p><img alt="image.png" src="../../assets/git/sub-folder2.png" /> </p>
+<ul>
+<li><code>.gitmodules</code>：自動生成的定義 submodule 關係的文件。</li>
+<li><code>child_repo</code>：指定的子模組資料夾。它在 Git 的追蹤中是作為一個特殊的 commit pointer。<br />
+在 <code>parent_repo</code> 的 Git Commit 中，子模組是以一特定的 commit SHA 記錄的，而不是整個目錄內容。</li>
+</ul>
+</details>
+</li>
+<li>
+<p>將這些變更打包並 <code>git push</code> 到 GitHub 上。</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>成功建立 submodules，並呈現於 GitHub 中。</p>
+</div>
+<hr />
+<h3 id="4-2-submodule-pointer">4-2. Submodule Pointer<a class="headerlink" href="#4-2-submodule-pointer" title="Permanent link">&para;</a></h3>
+<p>以下是 <code>parent_repo</code> 和點擊 <code>child_repo</code> 後的 submodule 截圖。</p>
+<p><img alt="" src="../../assets/git/parent.png" width="400" /> <img alt="" src="../../assets/git/child.png" width="320" /></p>
+<p>從截圖中我們可以知道：</p>
+<ul>
+<li><code>parent</code> 位於 <code>main</code> branch 上。</li>
+<li>submodule 紀錄的是 commit 版本，在 <code>@</code> 後方的就是版本的流水碼。</li>
+<li>導向的 <code>child</code> submodule，並不是位於 branch 上， 而是特定的 commit <code>882e817</code>。</li>
+<li>
+<p>可以透過下拉選單，切換成 <code>main</code> branch，查看 <code>child</code> 最新的版本。</p>
+<p><img alt="" src="../../assets/git/sub-branch.png" /></p>
+</li>
+</ul>
+<p>即便 submodule 在 <code>main</code> branch 持續更新，若 <code>parent</code> 沒有更新 commit pointer。<br />
+那麼 parent 上的 submodule 依舊會是過去的某個版本。</p>
+<hr />
+<h3 id="4-3">4-3. 更新子模組<a class="headerlink" href="#4-3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>當 <code>child</code> 更新時，我們需要更新 <code>parent</code> 中導向 <code>child</code> 的 commit pointer 。</p>
+</blockquote>
+<p>假設 <code>child</code> 已經做了更新：</p>
+<ol>
+<li>
+<p>移至 <code>parent</code> 的根目錄，輸入 <code>git status</code> 確認 commit pointer 為 <code>modified</code>。</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">On</span> <span class="n">branch</span> <span class="n">main</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">Your</span> <span class="n">branch</span> <span class="ow">is</span> <span class="n">up</span> <span class="n">to</span> <span class="n">date</span> <span class="k">with</span> <span class="s1">&#39;origin/main&#39;</span><span class="o">.</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># ...</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">modified</span><span class="p">:</span>   <span class="n">child</span> <span class="p">(</span><span class="n">new</span> <span class="n">commits</span><span class="p">)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># ...</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>跑一遍 add→ commit→ push 即可。</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>成功更新子模組，並使用 VSCode 的 GUI 來加速操作。<br />
+並養成習慣在任何的 git push 之後，都會去 GitHub 上檢查運作是否如預期。</p>
+</div>
+<hr />
+<h3 id="4-4">4-4. 新增子模組<a class="headerlink" href="#4-4" title="Permanent link">&para;</a></h3>
+<p>日後要新增子模組的步驟：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">cd</span> <span class="o">&lt;</span><span class="n">root_folder</span><span class="o">&gt;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">git</span> <span class="n">submodule</span> <span class="n">add</span> <span class="o">&lt;</span><span class="n">submodule_url</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">git</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span> <span class="o">--</span><span class="n">recursive</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">am</span> <span class="s2">&quot;add: repoB submodule&quot;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">git</span> <span class="n">push</span>
+</span></code></pre></div>
+<hr />
+<h2 id="5-github-action">5. GitHub Action<a class="headerlink" href="#5-github-action" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>GitHub Actions 是 GitHub 提供使用者自訂 Repo 內的 CI/CD (自動化流程)。</p>
+</div>
+<hr />
+<h3 id="5-1-docker-image">5-1. Docker Image 自動流程<a class="headerlink" href="#5-1-docker-image" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">Abstract</p>
+<p>最常用的服務之一，是建立「Docker Image 自動構建並發佈到 Docker Hub」的自動化流程。</p>
+</div>
+<p>這部份可以等學完 Docker 再回來學！</p>
+<p>設定步驟：</p>
+<ol>
+<li>
+<p>在 repo 的根目錄中新增 <code>.github/workflows</code>。<br />
+這是專門用來放置 GitHub Actions 的工作流程設定檔（Workflow files）。<br />
+GitHub 官方會在 repo 裡自動尋找 <code>.github</code> 資料夾中的內容，因此檔名不能亂改。</p>
+</li>
+<li>
+<p>在 <code>.github/workflows</code> 中自定義 workflows 的 yml。( e.g <code>docker-image.yml</code> )  </p>
+<details class="tip">
+<summary>action yml 範例</summary>
+<p>比較須要更改的部分有用 <code>##</code> 標註。  </p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VIPERX 300S image (x86)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1">## on：設定會觸發自動化工作流程的事件</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1">## 這裡希望只有當 docker 相關檔案被 git push 時, 才會觸發 CI/CD</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nt">on</span><span class="p">:</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nt">push</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">main</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pomelo925</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ros2/docker/Dockerfile</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.github/workflows/docker.yml</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1">## jobs：定義工作內容</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="nt">jobs</span><span class="p">:</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="nt">docker</span><span class="p">:</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="c1"># Initialization</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Repo Checkout</span><span class="w"> </span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Docker meta</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meta</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/metadata-action@v5</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">    </span><span class="c1">## 指定 docker image 的 name:tag</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="w">        </span><span class="nt">images</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_USERNAME }}/viperx-300s</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a><span class="w">    </span><span class="c1"># Login Docker Hub</span>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Docker Hub Log-in</span>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/login-action@v3</span>
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_USERNAME }}</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.DOCKERHUB_ACCESS_TOKEN }}</span>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="w">    </span><span class="c1"># Build Docker image</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Docker image</span>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/build-push-action@v6</span>
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a><span class="w">        </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ros2/docker</span><span class="w">  </span><span class="c1">## 指定 docker 資料夾路徑</span>
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a><span class="w">        </span><span class="nt">load</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.meta.outputs.tags }}</span>
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a><span class="w">        </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a><span class="w">        </span><span class="nt">no-cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a><span class="w">    </span><span class="c1"># Push Docker image to registry</span>
+</span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+</span><span id="__span-13-50"><a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Docker image</span>
+</span><span id="__span-13-51"><a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker/build-push-action@v6</span>
+</span><span id="__span-13-52"><a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
+</span><span id="__span-13-53"><a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a><span class="w">        </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ros2/docker</span><span class="w">   </span><span class="c1">## 指定 docker 資料夾路徑</span>
+</span><span id="__span-13-54"><a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a><span class="w">        </span><span class="nt">push</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-13-55"><a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.meta.outputs.tags }}</span>
+</span><span id="__span-13-56"><a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a><span class="w">        </span><span class="nt">no-cache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></code></pre></div>
+</details>
+</li>
+<li>
+<p>在 GitHub 上設定僅限此 repo 讀取的 secrets 金鑰。<br />
+儲存 Dockerhub 的 username 及 token。</p>
+<p><img alt="" src="../../assets/git/secrets.png" width="650" /></p>
+</li>
+<li>
+<p><code>git push</code> 後到 GitHub 上檢查是否開始運行 GitHub Action。</p>
+<p><img alt="" src="../../assets/git/actions.png" width="650" /></p>
+</li>
+<li>
+<p>在 VSCode 載入 GitHub Actions 套件，也能看到遠端的進度。</p>
+<p><img alt="" src="../../assets/git/action-extension.png" /></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="頁腳" >
+        
+          
+          <a href="../2.ssh/" class="md-footer__link md-footer__link--prev" aria-label="上一頁: 2.SSH">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一頁
+              </span>
+              <div class="md-ellipsis">
+                2.SSH
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../4.docker/" class="md-footer__link md-footer__link--next" aria-label="下一頁: 4.Docker">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一頁
+              </span>
+              <div class="md-ellipsis">
+                4.Docker
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "header.tabs.sticky", "header.tabs.sticky.scrollable", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.tracking.scrollable", "search.highlight", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

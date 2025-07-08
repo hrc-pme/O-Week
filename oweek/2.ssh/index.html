@@ -1,0 +1,1313 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hrc-pme.github.io/hrc-tech-docs/oweek/2.ssh/">
+      
+      
+        <link rel="prev" href="../1.linux/">
+      
+      
+        <link rel="next" href="../3.git/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>2.SSH - HRC Tech Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Huninn:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Huninn";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-ssh" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="HRC Tech Docs" class="md-header__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HRC Tech Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.SSH
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  O-Week
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../conventions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Conventions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robot/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contribution/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribution Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HRC Tech Docs" class="md-nav__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HRC Tech Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    O-Week
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            O-Week
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    2.SSH
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.SSH
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 機制說明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 機制說明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 公鑰 &amp; 私鑰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. SSH 驗證流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 實戰練習
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 實戰練習">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. 確認機器資訊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. 金鑰生成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. 遠端連線
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. SSH 設定檔
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4.Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5.ROS2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../conventions/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Conventions
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robot/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robot
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../tutorials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 機制說明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 機制說明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-1. 公鑰 &amp; 私鑰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-2-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      1-2. SSH 驗證流程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 實戰練習
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 實戰練習">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. 確認機器資訊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. 金鑰生成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. 遠端連線
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. SSH 設定檔
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/edit/master/docs/oweek/2.ssh.md" title="編輯此頁" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/raw/master/docs/oweek/2.ssh.md" title="查看此頁原始碼" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="2-ssh">2. SSH<a class="headerlink" href="#2-ssh" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>SSH (Secure Shell Protocol, 安全殼層協定)</p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">SSH</p>
+<p>SSH 是一種加密的網路傳輸協定，可在不安全的網路中提供安全的傳輸環境。<br />
+最常見用途是遠端登入系統，利用 SSH 來傳輸命令列介面和遠端執行命令。
+(維基百科)</p>
+</div>
+<p>檢查 SSH 安裝版本：<code>ssh -V</code></p>
+<hr />
+<h2 id="1">1. 機制說明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>SSH 會使用一對公鑰和私鑰來驗證使用者身份，先簡單描述兩者用途。<br />
+加密算法不用深入理解，先知道金鑰就是一長串亂碼就好。</p>
+<hr />
+<h3 id="1-1">1-1.  公鑰 &amp; 私鑰<a class="headerlink" href="#1-1" title="Permanent link">&para;</a></h3>
+<p>Public Key（公鑰）</p>
+<ul>
+<li>用來加密資料</li>
+<li>可以公開放在遠端伺服器上</li>
+<li>存放在伺服器的 <code>~/.ssh/authorized_keys</code> 中</li>
+</ul>
+<p>Private Key（私鑰）</p>
+<ul>
+<li>用來解密資料</li>
+<li>存放在用戶本機，路徑通常是 <code>~/.ssh/id_rsa</code></li>
+<li>只有擁有私鑰的人才能完成解密，代表身份驗證成功</li>
+</ul>
+<hr />
+<h3 id="1-2-ssh">1-2. SSH 驗證流程<a class="headerlink" href="#1-2-ssh" title="Permanent link">&para;</a></h3>
+<p>SSH 主要有密碼驗證和金鑰驗證兩種方式。</p>
+<p><strong>密碼驗證流程</strong></p>
+<blockquote>
+<p>這是最常見也最簡單的驗證方式，但安全性相對較低。流程如下：</p>
+</blockquote>
+<ol>
+<li>客戶端發起連線<br />
+    你的電腦 (SSH Client) 向目標伺服器 (SSH Server) 的 SSH 服務埠發起TCP 連線請求。</li>
+<li>伺服器回應<br />
+伺服器接收到連線請求後，會回應客戶端並告知其 SSH 版本資訊。</li>
+<li>協商加密方式<br />
+客戶端和伺服器會協商使用哪種加密演算法、金鑰交換方法和訊息驗證碼(MAC)演法。</li>
+<li>伺服器發送主機金鑰<br />
+伺服器會將自己的主機金鑰 (Host Key) 發送給客戶端。</li>
+<li>客戶端驗證主機金鑰  <ul>
+<li>首次連線： 如果是第一次連線到這個伺服器，客戶端會提示你是否信任這個機金鑰，並詢問是否要將其加入到你的 <code>known_hosts</code> 檔案中。如果你選擇信並加入，下次連線時客戶端會比對伺服器發送的主機金鑰是否與 <code>known_hosts</code>中記錄的一致。</li>
+<li>後續連線： 如果主機金鑰已經存在於 <code>known_hosts</code> 中，客戶端會比對收的金鑰是否一致。如果不一致，會發出警告，因為這可能表示發生了中間人攻擊。</li>
+</ul>
+</li>
+<li>伺服器請求密碼<br />
+伺服器會要求提供與該使用者名稱對應的密碼。</li>
+<li>客戶端發送加密後的密碼<br />
+客戶端輸入密碼後，客戶端會使用之前協商好的加密方式將密碼加密，然後發送給伺器。</li>
+<li>伺服器驗證密碼<br />
+伺服器收到加密後的密碼，會使用相同的加密方式解密，然後與系統中儲存的該使用密碼（通常是經過雜湊處理的）進行比對。</li>
+<li>驗證密碼<br />
+如果密碼比對成功，伺服器會允許客戶端登入，並建立一個安全的 SSH 會話。<br />
+如果密碼比對失敗，伺服器通常會拒絕登入請求，並可能限制嘗試次數以防止暴力解。</li>
+</ol>
+<p></br></p>
+<p><strong>金鑰驗證流程</strong></p>
+<blockquote>
+<p>使用一對公鑰和私鑰來驗證使用者身份，比密碼驗證更安全。流程如下：</p>
+</blockquote>
+<ol>
+<li>產生金鑰對<br />
+使用者在自己的電腦上使用 <code>ssh-keygen</code> 等工具產生一對公鑰和私鑰。
+私鑰必須妥善保管，絕不能洩露給他人。</li>
+<li>上傳公鑰到伺服器<br />
+使用者將公鑰複製到目標伺服器上特定使用者的 <code>~/.ssh/authorized_keys</code> 檔案中。
+每一行代表一個允許登入的公鑰。</li>
+<li>客戶端發起連線<br />
+你的電腦（SSH 客戶端）向目標伺服器發起連線請求。
+其餘流程與密碼驗證的前幾個步驟(1-5)相同。</li>
+<li>伺服器請求金鑰驗證<br />
+伺服器在驗證階段會嘗試使用 <code>authorized_keys</code> 檔案中的公鑰來驗證客戶端。</li>
+<li>客戶端提供私鑰資訊<br />
+客戶端收到伺服器請求後，會使用對應的私鑰生成一個數位簽章，並將簽章發送給伺服器。
+此過程可能需要你輸入私鑰的密碼（如果私鑰有設定密碼的話）。</li>
+<li>伺服器驗證簽章<br />
+伺服器使用儲存在 <code>authorized_keys</code> 檔案中對應的公鑰來驗證客戶端發送的數位簽章。
+伺服器會確認這個簽章是由與其配對的私鑰產生的。</li>
+<li>驗證金鑰<br />
+如果簽章驗證成功，伺服器會允許客戶端登入，而無需輸入密碼。
+如果簽章驗證失敗，伺服器會拒絕登入請求。</li>
+</ol>
+<hr />
+<h2 id="2">2. 實戰練習<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>須先準備好兩台有安裝 SSH 的機台，假定 <code>Host_A</code> 要 SSH 進 <code>Host_B</code>。</p>
+</div>
+<hr />
+<h3 id="2-1">2-1. 確認機器資訊<a class="headerlink" href="#2-1" title="Permanent link">&para;</a></h3>
+<p>在開始用 SSH 前，我們須要知道對方（<code>Host_B</code>）的：</p>
+<ul>
+<li>Username : 使用 <code>whoami</code> 查詢。</li>
+<li>Hostname：使用 <code>hostname</code> 查詢。</li>
+<li>IP：使用 <code>ip a</code> 查詢。<br />
+應該會看到類似 <code>inet 192.168.1.150/24</code> 的訊息，代表 IP 是 <code>192.168.1.150</code>。</li>
+</ul>
+<hr />
+<h3 id="2-2">2-2. 金鑰生成<a class="headerlink" href="#2-2" title="Permanent link">&para;</a></h3>
+<p>現在，<code>Host_A</code> 要生成金鑰。</p>
+<p>輸入指令 <code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code>。<br />
+連按三次 enter 即可, 會產生一組金鑰：</p>
+<ul>
+<li>公鑰位址：<code>~/.ssh/id_rsa.pub</code></li>
+<li>私鑰位址：<code>~/.ssh/id_rsa</code></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>一個 public key 可以用來 SSH 進多台主機，無須每次都生成一組新的金鑰對。<br />
+但不同 remote host 用不同的鑰匙能提高安全性。</p>
+</div>
+<hr />
+<h3 id="2-3">2-3. 遠端連線<a class="headerlink" href="#2-3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>假設 <code>Host_B</code> 用戶名為 <code>user</code> , IP 位址為 <code>192.168.1.150</code>。</p>
+</blockquote>
+<p>第一次連線，須將公鑰複製到遠端主機：<code>ssh-copy-id user@192.168.1.150</code>。<br />
+以後遠端連線只須輸 <code>ssh user@192.168.1.150</code> 即可。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>注意 <code>192.168</code> 開頭的 IP 通常都是區域網路中 router 所分配的 IP。<br />
+只有當 Client 和 Server 都在同個網域中才能互相訪問。</p>
+</div>
+<hr />
+<h3 id="2-4-ssh">2-4. SSH 設定檔<a class="headerlink" href="#2-4-ssh" title="Permanent link">&para;</a></h3>
+<ol>
+<li>建立或編輯 SSH 設定檔：<code>sudo nano ~/.ssh/config</code> </li>
+<li>
+<p>範例內容：</p>
+<div class="language-jsx highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">Host</span><span class="w"> </span><span class="nx">myserver</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">HostName</span><span class="w"> </span><span class="mf">192.168.1.150</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">User</span><span class="w"> </span><span class="nx">user</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nx">Port</span><span class="w"> </span><span class="mf">22</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nx">IdentityFile</span><span class="w"> </span><span class="o">~</span><span class="err">/.ssh/id_rsa</span>
+</span></code></pre></div>
+</li>
+<li>
+<p>之後只要輸入 <code>ssh myserver</code> 就可以登入了。</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>
+<p>在 VSCode 中設定 ssh config 並 passwordless login remote host。<br />
+成功連線時，能夠在 VSCode 中開啟 remote host 的資料夾，在毋須輸入密碼下，修改程式.</p>
+</li>
+<li>
+<p>(Optional) 學習使用 mDNS。以 remote hostname 取代 IP。<br />
+好處是可避免 DHCP 動態分配 IP 時造成每次都要重新確認 IP 的麻煩。<br />
+參考資料：<a href="https://hackmd.io/@925/mdns">【軟體】網路設定、連線 - mDNS 設定</a></p>
+</li>
+</ol>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>理解 DHCP，知道每台的 IP 位址怎麼來的。<br />
+可以如何避免 DHCP 下 IP 會浮動的問題?</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="頁腳" >
+        
+          
+          <a href="../1.linux/" class="md-footer__link md-footer__link--prev" aria-label="上一頁: 1.Linux">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一頁
+              </span>
+              <div class="md-ellipsis">
+                1.Linux
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../3.git/" class="md-footer__link md-footer__link--next" aria-label="下一頁: 3.Git">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一頁
+              </span>
+              <div class="md-ellipsis">
+                3.Git
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "header.tabs.sticky", "header.tabs.sticky.scrollable", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.tracking.scrollable", "search.highlight", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

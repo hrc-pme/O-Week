@@ -1,0 +1,2207 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://hrc-pme.github.io/hrc-tech-docs/oweek/4.docker/">
+      
+      
+        <link rel="prev" href="../3.git/">
+      
+      
+        <link rel="next" href="../5.ros2/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>4.Docker - HRC Tech Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Huninn:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Huninn";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../.." title="HRC Tech Docs" class="md-header__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            HRC Tech Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4.Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="標籤" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  O-Week
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../conventions/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Conventions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../robot/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Robot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../contribution/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contribution Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="HRC Tech Docs" class="md-nav__button md-logo" aria-label="HRC Tech Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    HRC Tech Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hrc-pme/hrc-tech-docs.git" title="前往倉庫" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.73 5.73 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218M4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5m8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M5 3.25a.75.75 0 1 0 0 .005z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hrc-pme/hrc-tech-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    O-Week
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            O-Week
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.linux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1.Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2.SSH
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3.Git
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    4.Docker
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    4.Docker
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 學習 Docker 之前
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 學習 Docker 之前">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 設定環境比 Coding 困難?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Docker 開發架構
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Docker 開發流程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Docker 開發流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-docker-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. docker pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-docker-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. docker run
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. dockerfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-docker-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. docker build
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-docker-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5. docker push
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Dockerfile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. 基本語法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-image-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. Image layer 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-3. user
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-4. 多階段構建
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Docker Compose
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Docker Compose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-1. Docker 檔案目錄
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-2. 定義服務
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-3. 常見配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-4. volumes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5.ROS2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../conventions/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Conventions
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../robot/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Robot
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../tutorials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contribution Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 學習 Docker 之前
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 學習 Docker 之前">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-coding" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 設定環境比 Coding 困難?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Docker 開發架構
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Docker 開發流程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Docker 開發流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-1-docker-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-1. docker pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2-docker-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-2. docker run
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-3-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-3. dockerfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-4-docker-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-4. docker build
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-5-docker-push" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-5. docker push
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Dockerfile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-1. 基本語法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-2-image-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-2. Image layer 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-3. user
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      3-4. 多階段構建
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Docker Compose
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Docker Compose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4-1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-1. Docker 檔案目錄
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-2. 定義服務
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-3. 常見配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      4-4. volumes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/edit/master/docs/oweek/4.docker.md" title="編輯此頁" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/hrc-pme/hrc-tech-docs.git/raw/master/docs/oweek/4.docker.md" title="查看此頁原始碼" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Docker</p>
+<p>Docker 是一種軟體平台，讓開發者能快速地建測試和部署應用程式。</p>
+</div>
+<h2 id="1-docker">1. 學習 Docker 之前<a class="headerlink" href="#1-docker" title="Permanent link">&para;</a></h2>
+<p>所有的軟體開發或使用第一步，是建立好環境。<br />
+而 Docker 是目前使用度最廣泛的環境建置工具。</p>
+<div class="admonition info">
+<p class="admonition-title">環境</p>
+<p>所謂環境，其涉及的範圍可以從底層的硬體架構(x86, ARM)、作業系統(Linux, Windows)、CPU/GPU 型號，  <br />
+到上層的驅動程式、Python 版本，或 ROS2 packages 等各種軟體工具。</p>
+</div>
+<hr />
+<h3 id="11-coding">1.1 設定環境比 Coding 困難?<a class="headerlink" href="#11-coding" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>環境設定有多麻煩呢？<br />
+文章賞析：<a href="https://www.reddit.com/r/learnprogramming/comments/smech6/does_anyone_else_feel_like_setting_up/">Does anyone else feel like setting up environments is harder than actually programming?</a></p>
+</blockquote>
+<p>假想場景：<br />
+實驗室要開發一個基於 C++ 的 ROS2 package，它內部實作使用到 Lambda 語法。<br />
+我們知道 Lambda 可以被 <code>C++11</code> 編譯器識別，但舊版的 <code>C++ 98/03</code> 不行。</p>
+<p>因此每次在新機器測試程式碼時，我們要先設定好 C++ 編譯器。<br />
+同理包含解決各種 python package 衝突, 確認 Ubuntu 版本, CUDA version 等等。</p>
+<p>這之間經常會遇到版本不相容、無法調用編譯器、忘記安裝某依賴項目等問題。<br />
+另外，每當同台機器要運行不同版本的程式碼，就要切換編譯器，相當麻煩。  </p>
+<p>很快地，下一章節是學習 ROS2。<br />
+假如現在規定使用 ROS2 Humble 開發，我們來看看差異：</p>
+<ul>
+<li>
+<p>不使用 Docker</p>
+<ol>
+<li>電腦必須灌 Ubuntu 22.04 OS。
+若系統為 20.04 或 24.04，只能放棄或重灌。</li>
+<li>
+<p>接著參考官網的 <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">ROS2 安裝步驟</a>。</p>
+<details class="note">
+<summary>示意圖</summary>
+<p><img alt="" src="../../assets/docker/ros-install.png" /></p>
+</details>
+</li>
+</ol>
+</li>
+<li>
+<p>使用 Docker</p>
+<ol>
+<li>電腦安裝 Docker。</li>
+<li>輸入終端機指令 <code>docker run -it --rm osrf/ros:humble-desktop-full bash</code>。</li>
+</ol>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">小提示</p>
+<p>Docker 環境建置快速，但更重要的是提升安全性。<br />
+使用 Docker 能隔離於本地環境，其餘細節後面會提到。</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>安裝好 Docker，並且知道不能不學 Docker。</p>
+</div>
+<hr />
+<h3 id="12-docker">1.2 Docker 開發架構<a class="headerlink" href="#12-docker" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Docker 的架構和早期虛擬機如 VMWare 等完全不同。<br />
+有興趣的可以自行查資料補充知識。</p>
+</blockquote>
+<p>這是 Docker 的開發流程示意圖：</p>
+<p><img alt="" src="../../assets/docker/docker-dev.png" width="600" /></p>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dockerfile</strong></td>
+<td>環境配置文件。</br>在 Dockerfile 中宣告要安裝哪些資源以及設定環境變數。</td>
+</tr>
+<tr>
+<td><strong>Docker Image</strong></td>
+<td>映像檔。</br>根據 Dockerfile 所建構 (build) 出來的軟體環境。</td>
+</tr>
+<tr>
+<td><strong>Docker Container</strong></td>
+<td>虛擬容器。</br>Container 是基於 Image 所執行 (run) 的一個實體應用。</td>
+</tr>
+</tbody>
+</table>
+<p>幾個要點：</p>
+<ul>
+<li>Dockerfile 構件成 Image 時，會使用到 CPU 資源。</li>
+<li>一個 Image 可以 run 多個 Container，每個 Container 之間可以是獨立的。</li>
+<li>在 Container 中的操作與宿主機 (host) 是隔離的。<br />
+所以你可以在 Container 中隨意測試，環境炸掉就把容器 remove 即可。</li>
+</ul>
+<hr />
+<h2 id="2-docker">2. Docker 開發流程<a class="headerlink" href="#2-docker" title="Permanent link">&para;</a></h2>
+<div class="admonition tip 實際演練">
+<p class="admonition-title">Tip</p>
+<p>先跑一次 Docker 的實際開發流程。<br />
+對整體架構有概念後，我們再回頭來學每個過程的細節。</p>
+</div>
+<p>接下來，會跑以下步驟，實際演練一下開發流程。</p>
+<ol>
+<li>將官方 ubuntu 22.04 的 Docker Image <code>docker pull</code> 到本地端。</li>
+<li>執行 <code>docker run</code>，建立一個基於官方 Docker Image 的 Docker Container 。</li>
+<li>在 Container 中測試搭建新環境，並紀錄於 <code>Dockerfile</code> 。</li>
+<li>根據修改完的 <code>Dockerfile</code> 去 <code>docker build</code> 出新版 Docker Image。<br />
+並執行基於新版 Image 的 Container，測試新環境。</li>
+<li>將新版 Docker Image  <code>docker push</code> 到 Docker Hub 上。</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>註冊 Docker Hub。</p>
+</div>
+<hr />
+<h3 id="2-1-docker-pull">2-1. docker pull<a class="headerlink" href="#2-1-docker-pull" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>將官方 ubuntu 22.04 的 Docker Image <code>docker pull</code> 到本地端。</p>
+</blockquote>
+<ol>
+<li>
+<p>下載 Ubuntu Image：<code>docker pull ubuntu:22.04</code>。</p>
+<details class="info" open="open">
+<summary>docker pull 細節</summary>
+<p>執行 <code>docker pull</code> 時系統會去找被存儲在 <a href="https://hub.docker.com/_/ubuntu">Docker Hub</a> 上的 Image。  </p>
+<p><img alt="" src="../../assets/docker/pull-arch.png" /></p>
+</details>
+<details class="warning">
+<summary>arch 不相容性</summary>
+<p>注意 Image 在不同 ARCH 間是不相容的。<br />
+例如 AMD64 不可使用 ARM 架構 build 出來的 Image，反之亦然。</p>
+</details>
+<details class="note">
+<summary>示意圖</summary>
+<p><img alt="" src="../../assets/docker/pull.png" /></p>
+</details>
+</li>
+<li>
+<p>檢查映像檔：<code>docker images</code>（ 形式是 <code>username/repository:tag</code> ）。</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>確認自己電腦的架構，並成功 pull image</p>
+</div>
+<hr />
+<h3 id="2-2-docker-run">2-2. docker run<a class="headerlink" href="#2-2-docker-run" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>執行 <code>docker run</code>，建立一個基於官方 Docker Image 的 Docker Container。</p>
+</blockquote>
+<ol>
+<li>
+<p>運行容器指令： <code>docker run -it --name my_ubuntu ubuntu:22.04 bash</code></p>
+<details class="note">
+<summary>示意圖</summary>
+<p>範例中 Container 的使用權限為 <code>root</code>，Container ID 為 <code>8a420442c5f4</code>。  </p>
+<p><img alt="" src="../../assets/docker/run.png" /></p>
+</details>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker run</code></td>
+<td>建立並啟動一個新的 container</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>（interactive）讓容器保持標準輸入開啟，允許互動</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>（tty）分配一個虛擬終端機，讓你有一個像真的 shell 環境</td>
+</tr>
+<tr>
+<td><code>--name my_ubuntu</code></td>
+<td>幫這個 container 取一個自訂名字叫 <code>my_ubuntu</code>，方便之後操作</td>
+</tr>
+<tr>
+<td><code>ubuntu:22.04</code></td>
+<td>使用的 image 是 <code>ubuntu</code>，版本是 <code>22.04</code>（即 Jammy Jellyfish）</td>
+</tr>
+<tr>
+<td><code>bash</code></td>
+<td>啟動容器後要執行的指令：這裡是 <code>/bin/bash</code>，讓你進入 shell</td>
+</tr>
+</tbody>
+</table>
+<p>注意事項：</p>
+<ul>
+<li>跑 <code>docker run</code> 時，系統會先找本地是否有此 Image。<br />
+若無則去 Docker Hub 上找並自動 <code>docker pull</code>。</li>
+<li>終端機前綴改變，代表進入 Container 的環境內。<br />
+現在於終端機輸入的指令，作用範圍都僅限於 Container。</li>
+</ul>
+</li>
+<li>
+<p>容器操作：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>指令</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>離開但保持 container 運行</td>
+<td><code>Ctrl + P</code> → <code>Ctrl + Q</code></td>
+<td>不會中斷 container 運行</td>
+</tr>
+<tr>
+<td>離開並停止 container 運行</td>
+<td><code>Ctrl + D</code></td>
+<td>相當於登出並關閉 container</td>
+</tr>
+<tr>
+<td>查看所有 container</td>
+<td><code>docker ps -a</code></td>
+<td>顯示運行中與已停止的 container</td>
+</tr>
+<tr>
+<td>重啟 container</td>
+<td><code>docker start my_ubuntu</code></td>
+<td>重啟停止運行的 container</td>
+</tr>
+<tr>
+<td>重新進入 container</td>
+<td><code>docker attach my_ubuntu</code> 或 <code>docker exec -it my_ubuntu bash</code></td>
+<td>僅適用於已運行中的 container</td>
+</tr>
+<tr>
+<td>停止 container</td>
+<td><code>docker stop my_ubuntu</code></td>
+<td>將 container 停止運行</td>
+</tr>
+<tr>
+<td>刪除 container</td>
+<td><code>docker rm my_ubuntu</code></td>
+<td>完全終止 container</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>在 Container 中可以輸入 Docker 相關指令嗎？為什麼？</li>
+<li>
+<p>使用 VSCode Extensions - Remote Developer, Docker 加速操作。</p>
+<details class="info">
+<summary>示意圖</summary>
+<p>常用功能：</p>
+<ul>
+<li>一覽所有 Container 狀態</li>
+<li>一覽個別 Container 的 Files，此為容器內資料夾目錄</li>
+<li>對 Container 點擊右鍵，選 Attach Shell 可直接進入終端</li>
+<li>對 Container 點擊右鍵，使用 stop, restart 以及 remove</li>
+</ul>
+<p><img alt="" src="../../assets/docker/vsc-docker.png" /></p>
+</details>
+</li>
+</ol>
+</div>
+<hr />
+<h3 id="2-3-dockerfile">2-3. dockerfile<a class="headerlink" href="#2-3-dockerfile" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>在 Container 中測試搭建新環境，並紀錄於 <code>Dockerfile</code>。 </p>
+</blockquote>
+<ol>
+<li>
+<p>在 Container 中，測試指令 <code>tree</code> 以及 <code>echo ${MY_ENV_VAR}</code>。</p>
+<p><img alt="" src="../../assets/docker/test-cmd.png" /></p>
+</li>
+<li>
+<p>在 Container 中，安裝 <code>tree</code> 以及設定環境變數。</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tree
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MY_ENV_VAR</span><span class="o">=</span>I_LOVE_DOCKER
+</span></code></pre></div>
+</li>
+<li>
+<p>在 Container 中，再測試一遍指令：<code>tree</code> 以及 <code>echo ${MY_ENV_VAR}</code>。<br />
+顯示的輸出結果如預期，代表第 2 步的環境設定是沒問題的。</p>
+</li>
+<li>
+<p>在 Host 中，任意資料夾中新增檔案，檔名為 <code>Dockerfile</code>。<br />
+    Dockerfile 的語法其實很直觀，詳細教學會留到下章節。</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># 基於哪個已存在的 Image 檔案建置環境</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c"># 設定環境變數</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">ENV</span><span class="w"> </span><span class="nv">MY_ENV_VAR</span><span class="o">=</span>I_LOVE_DOCKER
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c"># 安裝 tree</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>tree
+</span></code></pre></div>
+</li>
+</ol>
+<hr />
+<h3 id="2-4-docker-build">2-4. docker build<a class="headerlink" href="#2-4-docker-build" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>根據修改完的 <code>Dockerfile</code> 去 <code>docker build</code> 出新版 Docker Image。<br />
+並執行基於新版 Image 的 Container，測試新環境。</p>
+</blockquote>
+<ol>
+<li>
+<p>在 Host 中，瀏覽至 Dockerfile 所處資料夾，輸入構建指令。</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>ubuntu:22.04-custom<span class="w"> </span>--no-cache<span class="w"> </span>.
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>意義</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker build</code></td>
+<td>建立一個 Docker 映像檔（image）</td>
+</tr>
+<tr>
+<td><code>-t ubuntu:22.04-custom</code></td>
+<td><code>-t</code> 是 <code>--tag</code> 的縮寫，為建構出的 image 命名為 <code>ubuntu:22.04-custom</code></td>
+</tr>
+<tr>
+<td><code>--no-cache</code></td>
+<td>在建置過程中不使用任何快取，</td>
+</tr>
+<tr>
+<td>每一層都會重新執行</br>（避免使用舊的快取）</td>
+<td></td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>告訴 Docker 以當前目錄作為建置上下文（build context），</br>系統會自動尋找名為 <code>Dockerfile</code> 的文件</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>建構完成後，使用 <code>docker images</code> 檢查。</p>
+<details class="note">
+<summary>示意圖</summary>
+<p><img alt="" src="../../assets/docker/image.png" /></p>
+</details>
+</li>
+<li>
+<p>測試新環境：<code>docker run -it --name my_ubuntu_custom ubuntu:22.04-custom bash</code></p>
+</li>
+<li>
+<p>輸入測試指令 <code>tree</code> 及 <code>echo ${MY_ENV_VAR}</code> ，檢查新環境是否輸出預期結果。</p>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>充分理解為何 <code>ubuntu:22.04-custom</code> 能直接運行 <code>tree</code> 及 <code>echo ${MY_ENV_VAR}</code>。</li>
+<li>能再新建一個 <code>Dockerfile</code>，其 base image 為 <code>ubuntu:22.04-custom</code> 嗎? 需要注意什麼?</li>
+</ol>
+</div>
+<hr />
+<h3 id="2-5-docker-push">2-5. docker push<a class="headerlink" href="#2-5-docker-push" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>將新版 Docker Image  <code>docker push</code> 到 Docker Hub 上。</p>
+</blockquote>
+<ol>
+<li>
+<p>登入 docker 帳號 (輸入username/password)</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docker<span class="w"> </span>login
+</span></code></pre></div>
+</li>
+<li>
+<p>修改 tag 以符合上傳標準 (修改後可到 <code>docker images</code> 查看)</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># image name : USERNAME/REPOSITORY:TAG</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>docker<span class="w"> </span>tag<span class="w"> </span>ubuntu:22.04-custom<span class="w"> </span><span class="o">[</span>username<span class="o">]</span>/ubuntu:22.04-custom
+</span></code></pre></div>
+</li>
+<li>
+<p>推送到 Docker Hub</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>push<span class="w"> </span>pomelo925/ubuntu:22.04-custom
+</span></code></pre></div>
+</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<ol>
+<li>到 Docker Hub 上確認是否有 Docker Image。</li>
+<li>刪除本地端多餘的 Docker Image Tag，可學習用 <code>prune</code> 指令。</li>
+<li>刪除 <code>[username]/ubuntu:22.04-custom</code>，並重新 docker pull 檢查是否順利。</li>
+</ol>
+</div>
+<p>未來要在其他機台使用此環境，就能直接 docker pull 此 Docker Image。<br />
+省去重新建置環境的麻煩！</p>
+<hr />
+<h2 id="3-dockerfile">3. Dockerfile<a class="headerlink" href="#3-dockerfile" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>一些範例：<a href="https://github.com/pomelo925/act-plus-plus/blob/main/docker/gpu/Dockerfile">act-plus-plus</a>、<a href="https://github.com/pomelo925/TTennis-Pickup-Robot/blob/main/3.Software/C.EdgeNN/docker/Dockerfile">TTennis-Pickup-Robot</a></p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Dockerfile 學習目標</p>
+<p>Dockerfile 的基本功能是安裝依賴項目及環境參數。<br />
+但減少容量和提升安全性也是非常重要的兩項工作。</p>
+</div>
+<p>因為 Docker 和 Compose 的學習會在有目標後，比較有方向應該怎麼做。<br />
+因此以下部分可先過目，先知道有哪些東西要學後，未來再來邊看邊學。</p>
+<h3 id="3-1">3-1. 基本語法<a class="headerlink" href="#3-1" title="Permanent link">&para;</a></h3>
+<hr />
+<p>這裡放上幾個比較常用的 Docker 指令。當作工具書看就好。<br />
+其他沒提及的指令大部分都會在 Docker Compose 中宣告。</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LABEL</code></td>
+<td>提供 image 的中繼資訊（例如維護者、版本、說明）。</td>
+</tr>
+<tr>
+<td><code>FROM</code></td>
+<td>設定 base image，可用多個 <code>FROM</code> 來建立不同的建構階段（Stage）。</td>
+</tr>
+<tr>
+<td><code>RUN</code></td>
+<td>執行 shell 指令，每個 RUN 會建立一層 Layer。</td>
+</tr>
+<tr>
+<td><code>SHELL</code></td>
+<td>自訂 RUN/ENTRYPOINT/CMD 所使用的 shell，例如 <code>["bash", "-c"]</code>。</td>
+</tr>
+<tr>
+<td><code>ARG</code></td>
+<td>建構階段使用的變數（不能在 container runtime 使用）。</td>
+</tr>
+<tr>
+<td><code>ENV</code></td>
+<td>設定環境變數，可供後續指令或應用程式使用。</td>
+</tr>
+<tr>
+<td><code>COPY</code></td>
+<td>將檔案從 build context 複製進 image。支援 <code>--from=stage</code> 用於 multi-stage build。</td>
+</tr>
+<tr>
+<td><code>USER</code></td>
+<td>指定後續指令與執行程序所使用的使用者。預設為 root。</td>
+</tr>
+<tr>
+<td><code>WORKDIR</code></td>
+<td>設定工作目錄（自動建立目錄）。</td>
+</tr>
+<tr>
+<td><code>ENTRYPOINT</code></td>
+<td>設定容器啟動時的主要執行指令，<strong>通常搭配 CMD 提供參數</strong>。</td>
+</tr>
+</tbody>
+</table>
+<p>ARG 和 ENV 都是設定環境變數的指令。以下是差異：</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th><code>ARG</code></th>
+<th><code>ENV</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定義時間</td>
+<td><strong>建構階段（build-time）變數</strong></td>
+<td><strong>建構+執行階段（runtime）變數</strong></td>
+</tr>
+<tr>
+<td>可否跨 Stage</td>
+<td>預設無法跨 ****Stage</td>
+<td>可跨 Stage 繼續使用</td>
+</tr>
+<tr>
+<td>是否進入 Image</td>
+<td>不會寫入 image，僅供建構用</td>
+<td>會寫入 image，執行容器時仍可存取</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>比較安全，不會出現在最終 image 中</td>
+<td>若含密碼等資訊，會被寫入 image</td>
+</tr>
+<tr>
+<td>用途</td>
+<td>控制建構流程（例如安裝選項、版本等）</td>
+<td>提供應用執行所需參數或路徑設定</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-2-image-layer">3-2. Image layer 概念<a class="headerlink" href="#3-2-image-layer" title="Permanent link">&para;</a></h3>
+<p>幾個知識點：</p>
+<ul>
+<li><code>Dockerfile</code> 中的每個指令（例如 <code>RUN</code>, <code>COPY</code>, <code>ADD</code>）都會建立一層 layer。</li>
+<li>Docker 會對每個 layer 做「快取（cache）」處理，避免重複建構， 節省時間。</li>
+<li>layer 越多容量越大。所以我們會將相同類型的操作，合併到一個指令，以縮減容量。</li>
+</ul>
+<p>範例：</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c">## Example</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span><span class="w"> </span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c"># 安裝指令(使用一個 RUN 指令)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">RUN</span><span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span>cmake<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span></code></pre></div>
+<div class="admonition question">
+<p class="admonition-title"><code>rm -rf /var/lib/apt/lists/*</code> 作用 ?</p>
+<p>當執行 <code>apt update</code> 時，系統會下載套件清單並暫存到 <code>/var/lib/apt/lists/</code> 資料夾中。<br />
+這些快取檔案是用來告訴系統哪些套件可用、版本、來源等資訊。</p>
+<p>套件安裝完成後，就不需要這些套件索引清單了。<br />
+所以刪除它們，以縮減一個 Image layer 的容量大小。</p>
+<p>這是最基礎的減肥方法！</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>了解 Dockerfile 中 <code>\</code> 和 <code>&amp;&amp;</code> 的用法。</p>
+</div>
+<hr />
+<h3 id="3-3-user">3-3. user<a class="headerlink" href="#3-3-user" title="Permanent link">&para;</a></h3>
+<p>預設 Docker 容器內的操作會以 <strong><code>root</code></strong> 執行，容易有安全風險。</p>
+<p>雖然理論上容器是隔離於本地端的，但未來在 Docker Compose 中我們會配置許多參數，<br />
+開放部分權限或甚至共享檔案給容器，以方便開發用。</p>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c">## Example</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c"># 環境變數</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">ARG</span><span class="w"> </span><span class="nv">USERNAME</span><span class="o">=</span>hrc
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">ARG</span><span class="w"> </span><span class="nv">USER_UID</span><span class="o">=</span><span class="m">1000</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">ARG</span><span class="w"> </span><span class="nv">USER_GID</span><span class="o">=</span><span class="nv">$USER_UID</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c"># 創建 UID 1000 的 USER</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="k">RUN</span><span class="w"> </span>groupadd<span class="w"> </span>--gid<span class="w"> </span><span class="nv">$USER_GID</span><span class="w"> </span><span class="nv">$USERNAME</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span>useradd<span class="w"> </span>--uid<span class="w"> </span><span class="nv">$USER_UID</span><span class="w"> </span>--gid<span class="w"> </span><span class="nv">$USER_GID</span><span class="w"> </span>-m<span class="w"> </span><span class="nv">$USERNAME</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>sudo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USERNAME</span><span class="s2"> ALL=(ALL) NOPASSWD:ALL&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/sudoers.d/<span class="nv">$USERNAME</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span>chmod<span class="w"> </span><span class="m">0440</span><span class="w"> </span>/etc/sudoers.d/<span class="nv">$USERNAME</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="c"># 切換成 User 身分 (作用範圍包含後續的構建階段和最終的容器啟動)</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="k">USER</span><span class="w"> </span><span class="s">$USERNAME</span>
+</span></code></pre></div>
+<hr />
+<h3 id="3-4">3-4. 多階段構建<a class="headerlink" href="#3-4" title="Permanent link">&para;</a></h3>
+<div class="admonition abstract">
+<p class="admonition-title">多階段構建（multi-stage build）概念</p>
+<p>Multi-stage build（多階段建置）是 Dockerfile 的一種強大減肥功能，<br />
+主要用途是分離建構環境與執行環境，並降低映像檔大小。</p>
+</div>
+<p>Stage 概念</p>
+<ul>
+<li>是指一份 Dockerfile 裡使用多個 <code>FROM</code>。</li>
+<li>
+<p>語法為 <code>FROM Stage_A AS Stage_B</code> 。<br />
+其中 <code>Stage_A</code> 是前一個階段，下個階段則為 <code>Stage_B</code>。</p>
+<div class="admonition tip">
+<p class="admonition-title">用 Multi-Stage 語法明晰 Dockerfile 結構</p>
+<p>即使沒有使用 Multi-Stage Build 功能，也可以單純將 Stage 語法作為標誌，表示各安裝過程的階段。</p>
+</div>
+</li>
+</ul>
+<p>通常的流程是：</p>
+<ol>
+<li>先 <code>FROM base AS building</code><ol>
+<li>在 <code>building</code> 階段，安裝編譯工具。</li>
+<li>對文件進行編譯。</li>
+</ol>
+</li>
+<li>再 <code>FROM base AS release</code><ol>
+<li>在 <code>release</code> 階段，拷貝 <code>building</code> 階段編譯出的執行檔。</li>
+<li>由於 <code>release</code> 階段始於 <code>base</code> 階段，因此不會有 <code>building</code> 階段中安裝的編譯工具。</li>
+</ol>
+</li>
+</ol>
+<div class="language-docker highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c">## Example</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c"># ===== Stage 1: Build Stage =====</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span>cmake<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c"># 複製原始碼</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="k">COPY</span><span class="w"> </span>main.cpp<span class="w"> </span>/app/main.cpp
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="c"># 編譯</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="k">RUN</span><span class="w"> </span>g++<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>my_app
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="c"># ===== Stage 2: Runtime Stage =====</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">runtime</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="c"># 只拷貝編譯出來的執行檔</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/app/my_app<span class="w"> </span>/usr/local/bin/my_app
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="c"># 執行點</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;my_app&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<hr />
+<h2 id="4-docker-compose">4. Docker Compose<a class="headerlink" href="#4-docker-compose" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>一些範例：<a href="https://github.com/pomelo925/KochACT-RL/blob/ros-humble/docker/compose.yml">KochACT-RL</a>、<a href="https://github.com/pomelo925/TTennis-Pickup-Robot/blob/main/3.Software/E.Communication/docker/compose.yml">TTennis-Pickup-Robot</a></p>
+</blockquote>
+<div class="admonition abstract">
+<p class="admonition-title">Docker Compose 功能</p>
+<p>以結構清晰的 yaml 格式，指定運行 Docker 時的參數指令集。</p>
+</div>
+<hr />
+<h3 id="4-1-docker">4-1. Docker 檔案目錄<a class="headerlink" href="#4-1-docker" title="Permanent link">&para;</a></h3>
+<p>Docker 文件架構可以參考以下形式：</p>
+<div class="language-coffeescript highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="err">├──</span><span class="w"> </span><span class="nx">ws</span><span class="o">/</span><span class="w">  </span><span class="c1"># workspace folder</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="err">└──</span><span class="w"> </span><span class="nx">docker</span><span class="o">/</span><span class="w">  </span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="nx">Dockerfile</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="nx">compose</span><span class="p">.</span><span class="nx">yml</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">sh</span><span class="w">  </span><span class="c1"># (optional) container 服務的啟動腳本 </span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="err">└──</span><span class="w"> </span><span class="nx">run</span><span class="p">.</span><span class="nx">sh</span><span class="w">  </span><span class="c1"># 使用者啟動腳本</span>
+</span></code></pre></div>
+<p>先說說這種架構下的開發和使用形式：</p>
+<ol>
+<li>要構建 Image 或啟動 Container 時，Navigate 到 <code>docker</code> 資料夾，執行：<ul>
+<li><code>docker compose build</code>（意義上等同 <code>docker build</code> + <code>compose.yml</code> 參數）</li>
+<li><code>docker compose run</code>（意義上等同 <code>docker run</code> + <code>compose.yml</code> 參數）</li>
+</ul>
+</li>
+<li><code>service.sh</code> 會被 mount 進 container 內，並在容器啟動後預設執行此腳本。</li>
+<li><code>run.sh</code> 是使用者的進入點：<ul>
+<li>使用者 navigate 到根目錄，執行 <code>./run.sh</code> 就能啟動整個環境。</li>
+<li><code>./run.sh</code> 會包含 <code>docker compose run</code> 指令和 <code>export</code> 一些參數。</li>
+</ul>
+</li>
+</ol>
+<p>這樣的架構好處是：</p>
+<ol>
+<li>不需要打一長串、難以修改的 <code>docker run</code>、 <code>docker compose</code> 指令。</li>
+<li>需要修改 docker 啟動參數時，修改 <code>compose.yml</code> 即可。</li>
+<li>使用者只需要輸入 <code>./run.sh</code> 指令，就能啟動容器，快速方便。</li>
+</ol>
+<hr />
+<h3 id="4-2">4-2. 定義服務<a class="headerlink" href="#4-2" title="Permanent link">&para;</a></h3>
+<p>compose 中會定義容器的啟動服務，並配置參數。<br />
+例如指定要使用哪個 Docker Image，Image 的哪個 Stage 等等。</p>
+<p>基本形式：</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">## Example</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">services</span><span class="p">:</span><span class="w">  </span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="c1"># service 1 name : dev</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">dev</span><span class="p">:</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">        </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w">  </span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">release</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="w w-Error">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hrcnthu/viperx-300s:default</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/bin/bash&quot;</span><span class="p p-Indicator">]</span><span class="w"> </span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">  </span><span class="c1"># service 2 name : release</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">  </span><span class="nt">release</span><span class="p">:</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">      </span><span class="c1"># ...</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>參數名稱</th>
+<th>範例值</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build.context</code></td>
+<td><code>.</code></td>
+<td>指定建構時的上下文目錄（這裡是當前目錄）</td>
+</tr>
+<tr>
+<td><code>build.dockerfile</code></td>
+<td><code>Dockerfile</code></td>
+<td>指定要使用的 Dockerfile 檔名</td>
+</tr>
+<tr>
+<td><code>build.target</code></td>
+<td><code>release</code></td>
+<td>指定 multi-stage build 中的目標階段（stage）</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td><code>hrcnthu/viperx-300s:default</code></td>
+<td>為建構出來的 image 命名。</br>容器也會根據此 Image 啟動。</td>
+</tr>
+<tr>
+<td><code>container_name</code></td>
+<td><code>dev</code></td>
+<td>指定 container 名稱（否則會自動產生）</td>
+</tr>
+<tr>
+<td><code>command</code></td>
+<td><code>["/bin/bash"]</code></td>
+<td>容器啟動時執行的指令</br>（此為啟動後直接進入 bash shell）</td>
+</tr>
+</tbody>
+</table>
+<p>指令（先瀏覽到 <code>docker/</code> 目錄）：</p>
+<ul>
+<li><code>docker compose build</code>：<ul>
+<li>於本地構建 Docker Image</li>
+<li>構建完成生成名為 <code>hrcnthu/viperx-300s:default</code> 的映像檔；</li>
+</ul>
+</li>
+<li><code>docker compose run</code>：<ul>
+<li>啟動容器</li>
+<li>檢查本地是否有同名的  Image，若沒有則 <code>docker pull</code>。<br />
+若 Docker Hub 上也沒有，則根據本地的 <code>Dockerfile</code> 構建。</li>
+</ul>
+</li>
+</ul>
+<p>邏輯其實都和原本一樣，只是使用 <code>compose.yml</code> 簡化流程。</p>
+<p>若想指定服務，使用指令 <code>docker compose run [service_name]</code>。<br />
+若沒有指定，則跑 <code>compose.yml</code> 中最先定義的服務。</p>
+<div class="admonition example">
+<p class="admonition-title">Checkpoint</p>
+<p>測試 <code>docker compose build</code> 和 <code>docker compose run</code> 指令成功。</p>
+</div>
+<hr />
+<h3 id="4-3">4-3. 常見配置<a class="headerlink" href="#4-3" title="Permanent link">&para;</a></h3>
+<p>附上一些常見的配置參數。</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">## Example</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">services</span><span class="p">:</span><span class="w">  </span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="c1"># service 1 name : dev</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">dev</span><span class="p">:</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w">  </span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="w w-Error">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hrcnthu/viperx-300s:default</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;/bin/bash&quot;</span><span class="p p-Indicator">]</span><span class="w"> </span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="c1">## common configurations</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">      </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">      </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">      </span><span class="nt">privileged</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">      </span><span class="nt">stop_grace_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">      </span><span class="nt">devices</span><span class="p">:</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev:/dev</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">      </span><span class="nt">environment</span><span class="p">:</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DISPLAY=${DISPLAY}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>參數名稱</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tty: true</code></td>
+<td>為容器分配一個虛擬終端機（TTY），用於互動式 shell 例如 <code>bash</code>。</td>
+</tr>
+<tr>
+<td><code>network_mode: host</code></td>
+<td>使用宿主機的網路設定，容器會共用宿主機的 IP 位址與通訊埠。</td>
+</tr>
+<tr>
+<td><code>privileged: true</code></td>
+<td>啟用特權模式，容器可以存取宿主機的大部分資源（如 USB）。</td>
+</tr>
+<tr>
+<td><code>stop_grace_period: 1s</code></td>
+<td>當容器被停止時，Docker 只等待 1 秒讓容器內的應用正常結束（發出 SIGTERM），便發出 SIGKILL。</br>如果沒設此參數，有時需要十幾秒才會完全關閉。</td>
+</tr>
+<tr>
+<td><code>devices: - /dev:/dev</code></td>
+<td>將宿主機的 <code>/dev</code> 資料夾掛載到容器內。</br>讓容器能夠存取所有裝置（例如攝影機、串列埠等）。</td>
+</tr>
+<tr>
+<td><code>environment:- DISPLAY=${DISPLAY}</code></td>
+<td>將宿主機的環境變數 <code>DISPLAY</code> 傳入容器，用於支援 GUI 程式的畫面輸出。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-4-volumes">4-4. volumes<a class="headerlink" href="#4-4-volumes" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>Docker volume 是一種把宿主機的目錄或檔案掛載（mount）到容器內特定路徑的機制。</p>
+</blockquote>
+<p>volume 包含的檔案們，在 host 與 container 之間是共享的。<br />
+所以當我們在 container 中修改這些文件，其改動會直接連動到宿主端。<br />
+將 container 刪除後這些文件也仍然會保留在 host 中。</p>
+<p>這功能特別適合使用在需要持續開發的程式碼，以及載入本地資源。 </p>
+<p>語法：</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">volumes</span><span class="p">:</span><span class="w">  </span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">host-path</span><span class="p p-Indicator">]</span><span class="l l-Scalar l-Scalar-Plain">:[container-path]:[authority]</span>
+</span></code></pre></div>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">## Example</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">volumes</span><span class="p">:</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="c1"># GUI</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~/.Xauthority:~/.Xauthority:ro</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/.X11-unix:/tmp/.X11-unix:ro</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="c1"># ROS2 container communication</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/shm:/dev/shm:rw</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span><span class="c1"># Udev rules </span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev:/dev:rw</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/udev:/run/udev:ro</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/udev:/etc/udev:ro</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="c1"># Workspace</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./entrypoint:/entrypoint:rw</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../koch-lerobot:/koch-lerobot:rw</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../ros2-ws/build:/ros2-ws/build:rw</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../ros2-ws/install:/ros2-ws/install:rw</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../ros2-ws/src:/ros2-ws/src:rw</span>
+</span></code></pre></div>
+<div class="admonition question">
+<p class="admonition-title">哪些文件應該要放進 volume?</p>
+<p>容器內的文件，在容器刪除後就會隨之消失。<br />
+所以在開發時要規劃，把持續更動、想保留的文件，列入 volume 範圍。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂端
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="頁腳" >
+        
+          
+          <a href="../3.git/" class="md-footer__link md-footer__link--prev" aria-label="上一頁: 3.Git">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一頁
+              </span>
+              <div class="md-ellipsis">
+                3.Git
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../5.ros2/" class="md-footer__link md-footer__link--next" aria-label="下一頁: 5.ROS2">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一頁
+              </span>
+              <div class="md-ellipsis">
+                5.ROS2
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "header.tabs.sticky", "header.tabs.sticky.scrollable", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.tracking.scrollable", "search.highlight", "search.share", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
