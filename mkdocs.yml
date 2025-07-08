@@ -76,6 +76,11 @@ nav:
     - 3.Git: oweek/3.git.md
     - 4.Docker: oweek/4.docker.md
     - 5.ROS2: oweek/5.ros2.md
+    - 6.Nav2:
+      - chapter1 Installation and Environment Setup: oweek/6.nav2_tutorial_file/chapter1.md
+      - chapter2 Common Topics for Nav2 × TurtleBot3: oweek/6.nav2_tutorial_file/chapter2.md
+      - chapter3 TurtleBot3 Navigation Simulation: oweek/6.nav2_tutorial_file/chapter3.md
+      - demo Application – Robot Localization Fusion Based on Kalman Filter: oweek/6.nav2_tutorial_file/demo.md
 
   - Conventions: 
     - conventions/index.md
